@@ -1,0 +1,265 @@
+/* ダイアログのスタイル */
+.dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.dialog-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.dialog-content {
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  max-width: 90%;
+  width: 400px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  transform: scale(0.8);
+  transition: transform 0.3s ease;
+}
+
+.dialog-overlay.show .dialog-content {
+  transform: scale(1);
+}
+
+.dialog-header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.dialog-title {
+  font-family: 'Cormorant Garamond', serif;
+  color: #d14783;
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.dialog-subtitle {
+  color: #6d4c41;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.dialog-section {
+  margin-bottom: 25px;
+}
+
+.dialog-section-title {
+  font-family: 'Cormorant Garamond', serif;
+  color: #c75c8b;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* サイト選択 */
+.site-selection {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.site-option {
+  padding: 12px 8px;
+  border: 2px solid #ffb6c1;
+  border-radius: 10px;
+  background: #fff0f5;
+  cursor: pointer;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #6d4c41;
+  transition: all 0.3s ease;
+}
+
+.site-option:hover {
+  background: #ffe4e1;
+  border-color: #d14783;
+}
+
+.site-option.selected {
+  background: #d14783;
+  color: white;
+  border-color: #d14783;
+}
+
+/* 画像アップロード */
+.image-upload-area {
+  border: 2px dashed #ffb6c1;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  background: #fff0f5;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.image-upload-area:hover {
+  border-color: #d14783;
+  background: #ffe4e1;
+}
+
+.image-upload-area.dragover {
+  border-color: #d14783;
+  background: #ffe4e1;
+}
+
+.upload-icon {
+  font-size: 2rem;
+  color: #d14783;
+  margin-bottom: 10px;
+}
+
+.upload-text {
+  color: #6d4c41;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+.file-input {
+  display: none;
+}
+
+.preview-image {
+  max-width: 100%;
+  max-height: 150px;
+  border-radius: 8px;
+  margin-top: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.change-image-btn {
+  margin-top: 10px;
+  padding: 8px 16px;
+  background: #d14783;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.change-image-btn:hover {
+  background: #c75c8b;
+}
+
+/* カラーパレット */
+.color-palette-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.color-palette-option {
+  border: 3px solid transparent;
+  border-radius: 12px;
+  padding: 15px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.color-palette-option:hover {
+  transform: scale(1.05);
+}
+
+.color-palette-option.selected {
+  border-color: #d14783;
+  box-shadow: 0 0 15px rgba(209, 71, 131, 0.3);
+}
+
+.palette-preview {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  margin-bottom: 8px;
+}
+
+.palette-color {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.palette-name {
+  font-size: 0.8rem;
+  color: #6d4c41;
+  font-weight: 500;
+}
+
+/* ボタン */
+.dialog-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.dialog-button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Noto Serif JP', serif;
+}
+
+.dialog-button.primary {
+  background: #d14783;
+  color: white;
+}
+
+.dialog-button.primary:hover {
+  background: #c75c8b;
+  transform: translateY(-2px);
+}
+
+.dialog-button.secondary {
+  background: #f5f5f5;
+  color: #6d4c41;
+  border: 1px solid #ddd;
+}
+
+.dialog-button.secondary:hover {
+  background: #e0e0e0;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 480px) {
+  .dialog-content {
+    width: 95%;
+    padding: 20px;
+  }
+  
+  .color-palette-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  
+  .site-selection {
+    grid-template-columns: 1fr;
+  }
+}
+

@@ -1,0 +1,351 @@
+/* サンプルサイト2のスタイル - モダン・ミニマル */
+.site-site2 .overlay-content-card {
+  border-radius: 0;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
+  border: none;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.95) 100%);
+}
+
+.site-site2 .wedding-title {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-weight: 500;
+  font-size: clamp(1.8rem, 6.0vw, 2.5rem);
+  background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.site-site2 .section-title {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 500;
+  font-size: 1.3rem;
+}
+
+.site-site2 .section-title::after {
+  width: 100px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--secondary-color), transparent);
+}
+
+.site-site2 .profile-card {
+  border-radius: 0;
+  border-left: 5px solid var(--primary-color);
+  border-right: 1px solid #f0f0f0;
+  border-top: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f0f0f0;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.site-site2 .profile-card:hover {
+  transform: translateX(5px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+}
+
+.site-site2 .profile-image-container {
+  border-radius: 0;
+  border: none;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.site-site2 .timeline-content {
+  border-radius: 0;
+  border-left: 3px solid var(--secondary-color);
+  padding-left: 20px;
+}
+
+.site-site2 .episode-card {
+  border-radius: 0;
+  border-left: 4px solid var(--primary-color);
+  border-right: none;
+  border-top: none;
+  border-bottom: none;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.site-site2 .gallery-item {
+  border-radius: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.site-site2 .gallery-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent 70%, var(--primary-color));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+.site-site2 .gallery-item:hover::before {
+  opacity: 0.1;
+}
+
+/* サンプルサイト3のスタイル - エレガント・クラシック */
+.site-site3 .overlay-content-card {
+  border-radius: 30px;
+  border: 3px solid var(--secondary-color);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+  background: radial-gradient(circle at top right, rgba(255, 240, 245, 0.8), rgba(255, 255, 255, 0.95));
+  position: relative;
+  overflow: hidden;
+}
+
+.site-site3 .overlay-content-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, var(--secondary-color) 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: 0.05;
+  z-index: 0;
+}
+
+.site-site3 .overlay-content-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.site-site3 .wedding-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  transform: rotate(-1deg);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.site-site3 .wedding-title::after {
+  content: '♡';
+  position: absolute;
+  top: -10px;
+  right: -20px;
+  font-size: 1.5rem;
+  color: var(--secondary-color);
+  animation: heartbeat 2s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.site-site3 .section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  position: relative;
+}
+
+.site-site3 .section-title::before,
+.site-site3 .section-title::after {
+  content: '❀';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--secondary-color);
+  font-size: 1.2rem;
+}
+
+.site-site3 .section-title::before {
+  left: -30px;
+}
+
+.site-site3 .section-title::after {
+  right: -30px;
+}
+
+.site-site3 .profile-card {
+  border-radius: 25px;
+  transform: rotate(0.5deg);
+  border: 2px solid var(--secondary-color);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.site-site3 .profile-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--primary-color));
+  z-index: 1;
+}
+
+.site-site3 .profile-card:nth-child(even) {
+  transform: rotate(-0.5deg);
+}
+
+.site-site3 .profile-card:hover {
+  transform: rotate(0deg) scale(1.02);
+}
+
+.site-site3 .profile-image-container {
+  border-radius: 50%;
+  border: 4px solid white;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+.site-site3 .timeline-content {
+  border-radius: 15px;
+  border: 1px solid var(--secondary-color);
+  position: relative;
+  overflow: hidden;
+}
+
+.site-site3 .timeline-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, transparent 0%, var(--background-color) 50%, transparent 100%);
+  opacity: 0.3;
+  z-index: 0;
+}
+
+.site-site3 .timeline-content > * {
+  position: relative;
+  z-index: 1;
+}
+
+.site-site3 .episode-card {
+  border-radius: 20px;
+  border: 2px solid var(--secondary-color);
+  transform: rotate(0.3deg);
+  transition: transform 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.site-site3 .episode-card:nth-child(even) {
+  transform: rotate(-0.3deg);
+}
+
+.site-site3 .episode-card:hover {
+  transform: rotate(0deg);
+}
+
+.site-site3 .episode-card::after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+  background: var(--secondary-color);
+  border-radius: 50%;
+  opacity: 0.3;
+}
+
+.site-site3 .gallery-item {
+  border-radius: 50% 10% 50% 10%;
+  overflow: hidden;
+  transition: border-radius 0.3s ease, transform 0.3s ease;
+}
+
+.site-site3 .gallery-item:hover {
+  border-radius: 10% 50% 10% 50%;
+  transform: scale(1.05);
+}
+
+.site-site3 .qa-item {
+  border-radius: 15px;
+  padding: 15px;
+  margin: 10px 0;
+  background: linear-gradient(135deg, var(--background-color) 0%, rgba(255, 255, 255, 0.8) 100%);
+  border: 1px solid var(--secondary-color);
+  border-bottom: none;
+}
+
+.site-site3 .qa-icon {
+  background: var(--primary-color);
+  color: white;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  margin-right: 15px;
+  flex-shrink: 0;
+}
+
+/* 共通のアニメーション効果 */
+.site-site2 .fade-in,
+.site-site3 .fade-in {
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.site-site2 .fade-in.visible {
+  animation: slideInLeft 0.8s ease-out;
+}
+
+.site-site3 .fade-in.visible {
+  animation: bounceIn 0.8s ease-out;
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 480px) {
+  .site-site3 .section-title::before,
+  .site-site3 .section-title::after {
+    display: none;
+  }
+  
+  .site-site2 .profile-card:hover {
+    transform: none;
+  }
+  
+  .site-site3 .profile-card,
+  .site-site3 .episode-card {
+    transform: none !important;
+  }
+}
+

@@ -1,4 +1,13 @@
 /* 全体のスタイル */
+:root {
+  --primary-color: #d14783;
+  --secondary-color: #ffb6c1;
+  --background-color: #fff0f5;
+  --accent-color: #c75c8b;
+  --text-color: #6d4c41;
+  --light-text-color: #e080a8;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -58,7 +67,7 @@ body {
 
 .wedding-title {
   font-family: 'Yesteryear', cursive;
-  color: #d14783;
+  color: var(--primary-color);
   font-weight: 400;
   margin-bottom: 20px;
   letter-spacing: 1px;
@@ -112,7 +121,7 @@ body {
 
 .names {
   font-family: 'Cormorant Garamond', serif;
-  color: #c75c8b;
+  color: var(--accent-color);
   font-size: 1.8rem;
   font-weight: 500;
   letter-spacing: 1.5px;
@@ -121,14 +130,14 @@ body {
 
 .date {
   font-family: 'Cormorant Garamond', serif;
-  color: #e080a8;
+  color: var(--light-text-color);
   font-size: 1.4rem;
   font-weight: 400;
 }
 
 .section-title {
   font-family: 'Cormorant Garamond', serif;
-  color: #c75c8b;
+  color: var(--accent-color);
   font-size: 1.6rem;
   font-weight: 600;
   letter-spacing: 1px;
@@ -143,7 +152,7 @@ body {
   display: block;
   width: 60px;
   height: 2px;
-  background-color: #ffb6c1;
+  background-color: var(--secondary-color);
   margin: 8px auto 0;
   border-radius: 1px;
 }
@@ -187,7 +196,7 @@ body {
   flex-direction: column;
   align-items: center;
   margin-bottom: 25px;
-  background-color: #fffaf0;
+  background-color: var(--background-color);
   padding: 20px;
   border-radius: 15px;
   border: 1px solid #ffe4e1;
@@ -219,7 +228,7 @@ body {
 
 .profile-name {
   font-size: 1.35rem;
-  color: #d14783;
+  color: var(--primary-color);
   margin-bottom: 15px;
   font-weight: 600;
   text-align: center;
