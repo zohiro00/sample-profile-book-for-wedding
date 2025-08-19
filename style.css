@@ -681,3 +681,35 @@ body {
     font-size: 0.9rem;
   }
 }
+
+/* Settings Icon */
+#settings-icon {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  cursor: pointer;
+  z-index: 999;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: scale(1);
+  opacity: 1; /* 明示的に指定 */
+}
+
+#settings-icon.hidden {
+  opacity: 0;
+  transform: scale(0.5);
+  pointer-events: none;
+}
+
+#settings-icon svg {
+  width: 28px;
+  height: 28px;
+  color: var(--text-color);
+}
