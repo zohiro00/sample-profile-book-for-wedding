@@ -79,4 +79,40 @@ document.addEventListener("DOMContentLoaded", function () {
       observer.observe(el);
     });
   }
+
+  // Settings Icon Logic
+  const settingsIcon = document.getElementById('settings-icon');
+
+  if (settingsIcon) {
+    // 1. Add click listener to reload
+    settingsIcon.addEventListener('click', () => {
+      location.reload();
+    });
+
+    // 2. Function to toggle visibility
+    const toggleSettingsIconVisibility = () => {
+      const dialog = document.getElementById('weddingDialog');
+      if (dialog) {
+        settingsIcon.classList.add('hidden');
+      } else {
+        settingsIcon.classList.remove('hidden');
+      }
+    };
+
+    // 3. MutationObserver to watch for dialog
+    const observer = new MutationObserver((mutationsList, observer) => {
+      for(const mutation of mutationsList) {
+        if (mutation.type === 'childList') {
+          // Check if nodes were added or removed
+          toggleSettingsIconVisibility();
+        }
+      }
+    });
+
+    // Start observing the body for child list changes
+    observer.observe(document.body, { childList: true });
+
+    // 4. Initial check
+    toggleSettingsIconVisibility();
+  }
 });
