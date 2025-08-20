@@ -2,7 +2,7 @@
 
 const siteDesigns = [
   { id: 'site1', name: 'サンプル1', className: 'design-default' },
-  { id: 'site2', name: 'サンプル2', className: 'design-modern' },
+  { id: 'site2', name: 'サンプル2', className: 'design-stylish-mono' },
   { id: 'site3', name: 'サンプル3', className: 'design-elegant' }
 ];
 
@@ -299,6 +299,19 @@ class WeddingDialog {
 
     // 新しいデザインクラスを追加
     document.body.classList.add(selectedDesign.className);
+
+    // モノクロデザインの場合、カラーパレットを上書き
+    if (selectedDesign.className === 'design-stylish-mono') {
+      const monoColors = {
+        primary: '#2c3e50',
+        secondary: '#bdc3c7',
+        background: '#ecf0f1',
+        accent: '#34495e',
+        textColor: '#2c3e50',
+        lightTextColor: '#7f8c8d'
+      };
+      this.updateElementColors(monoColors);
+    }
   }
 
   showDialog() {
