@@ -20,8 +20,8 @@ html {
 
 body {
   font-family: 'Noto Serif JP', serif;
-  background: linear-gradient(135deg, #fff0f5 0%, #ffe4e1 100%);
-  color: #6d4c41;
+  background: var(--background-color);
+  color: var(--text-color);
   min-height: 100vh;
   line-height: 1.75;
   -webkit-font-smoothing: antialiased;
@@ -167,7 +167,7 @@ body {
 .greeting-text {
   font-size: 0.9rem;
   line-height: 1.9;
-  color: #5c3c32;
+  color: var(--text-color);
   margin-bottom: 20px;
   text-align: center;
 }
@@ -199,7 +199,7 @@ body {
   background-color: var(--background-color);
   padding: 20px;
   border-radius: 15px;
-  border: 1px solid #ffe4e1;
+  border: 1px solid var(--secondary-color);
   box-shadow: 0 4px 10px rgba(219, 112, 147, 0.08);
 }
 
@@ -240,7 +240,7 @@ body {
   gap: 8px 10px;
   text-align: left;
   font-size: 0.9rem;
-  color: #755249;
+  color: var(--text-color);
 }
 
 .profile-detail-item {
@@ -249,7 +249,7 @@ body {
 
 .detail-label {
   font-weight: 500;
-  color: #b66699;
+  color: var(--accent-color);
   padding-right: 5px;
   white-space: nowrap;
 }
@@ -332,7 +332,7 @@ body {
 }
 .timeline-title p {
   font-size: 1rem;
-  color: #e080a8; /* 日付など、少し明るい色 */
+  color: var(--light-text-color); /* 日付など、少し明るい色 */
   font-weight: 500;
 }
 
@@ -350,7 +350,7 @@ body {
   bottom: 0;
   left: 20px; /* 縦線の位置 (アイコンの中央に合わせる) */
   width: 2px; /* 線の太さ */
-  background-color: #ffb6c1; /* ピンク系の色 */
+  background-color: var(--secondary-color); /* ピンク系の色 */
 }
 
 .timeline-item {
@@ -375,8 +375,8 @@ body {
   /* アイコン要素のサイズを大きくする */
   width: 35px;
   height: 35px;
-  background-color: #fff0f5; /* アイコン背景色 (薄いピンク) */
-  border: 2px solid #ffb6c1; /* アイコン枠線色 (縦線と同じ色) */
+  background-color: var(--background-color); /* アイコン背景色 (薄いピンク) */
+  border: 2px solid var(--secondary-color); /* アイコン枠線色 (縦線と同じ色) */
   border-radius: 50%; /* 円形にする */
   display: flex;
   justify-content: center;
@@ -396,7 +396,7 @@ body {
 }
 
 .timeline-content {
-  background-color: #fffaf0; /* プロフィールカードなどに合わせた背景色 */
+  background-color: var(--background-color); /* プロフィールカードなどに合わせた背景色 */
   padding: 15px;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(219, 112, 147, 0.1);
@@ -406,14 +406,14 @@ body {
 
 .timeline-content h4 {
   font-size: 0.9rem;
-  color: #bf4080; /* 少し濃いピンク */
+  color: var(--accent-color); /* 少し濃いピンク */
   font-weight: 600;
   margin-bottom: 5px;
 }
 
 .timeline-content p {
   font-size: 0.9rem;
-  color: #6d4c41; /* ベーステキストカラー */
+  color: var(--text-color); /* ベーステキストカラー */
   line-height: 1.6;
 }
 
@@ -447,12 +447,12 @@ body {
 }
 
 .episode-card {
-  background-color: #fff5f7;
+  background-color: var(--background-color);
   border-radius: 12px;
   padding: 15px;
   margin-bottom: 20px;
   box-shadow: 0 3px 8px rgba(200, 100, 130, 0.1);
-  border-left: 5px solid #ffb3c6;
+  border-left: 5px solid var(--secondary-color);
 }
 
 .episode-image-container {
@@ -478,7 +478,7 @@ body {
 .episode-title-text {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.3rem;
-  color: #bf4080;
+  color: var(--accent-color);
   font-weight: 600;
   margin-bottom: 8px;
 }
@@ -486,7 +486,7 @@ body {
 .episode-details-text {
   font-size: 0.9rem;
   line-height: 1.75;
-  color: #704241;
+  color: var(--text-color);
 }
 
 .episode-details-text br {
@@ -508,7 +508,7 @@ body {
   padding: 12px 5px;
   /* 上下左右のパディングを調整 */
   margin-bottom: 15px;
-  border-bottom: 1px dashed #f7cac9;
+  border-bottom: 1px dashed var(--secondary-color);
   /* PalePink の点線で区切り */
 }
 
@@ -521,7 +521,7 @@ body {
   font-family: 'M PLUS Rounded 1c', sans-serif;
   font-size: 1.5rem;
   /* アイコンサイズ */
-  color: #e080a8;
+  color: var(--light-text-color);
   /* 明るめのピンク */
   margin-right: 12px;
   /* アイコンとテキストの間隔 */
@@ -538,7 +538,7 @@ body {
 .qa-question {
   font-size: 1.05rem;
   /* 質問のフォントサイズ */
-  color: #c75c8b;
+  color: var(--accent-color);
   /* やや落ち着いたピンク */
   font-weight: 500;
   margin-bottom: 6px;
@@ -548,7 +548,7 @@ body {
 .qa-answer {
   font-size: 0.9rem;
   line-height: 1.7;
-  color: #6d4c41;
+  color: var(--text-color);
   /* 温かみのあるブラウン系テキスト */
   font-weight: 400;
 }
@@ -604,7 +604,7 @@ body {
   font-family: 'M PLUS Rounded 1c', sans-serif;
   font-size: 0.95rem;
   line-height: 1.8;
-  color: #c75c8b;
+  color: var(--accent-color);
   font-weight: 500;
 }
 
