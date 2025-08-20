@@ -1,12 +1,4 @@
 /* デザイン: スタイリッシュ・モノクロ */
-.design-stylish-mono {
-  --primary-color: #2c3e50;
-  --secondary-color: #bdc3c7;
-  --background-color: #ecf0f1;
-  --accent-color: #34495e;
-  --text-color: #2c3e50;
-}
-
 .design-stylish-mono .overlay-content-card {
   border-radius: 8px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
