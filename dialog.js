@@ -218,49 +218,48 @@ class WeddingDialog {
         primary: '#d14783',
         secondary: '#ffb6c1',
         background: '#fff0f5',
-        accent: '#c75c8b'
+        accent: '#c75c8b',
+        textColor: '#7d415d'
       },
       blue: {
         primary: '#4a90e2',
         secondary: '#87ceeb',
         background: '#f0f8ff',
-        accent: '#2c5aa0'
+        accent: '#2c5aa0',
+        textColor: '#1c3d5a'
       },
       green: {
         primary: '#5cb85c',
         secondary: '#90ee90',
         background: '#f0fff0',
-        accent: '#449d44'
+        accent: '#449d44',
+        textColor: '#2e6b2e'
       },
       purple: {
         primary: '#8e44ad',
         secondary: '#dda0dd',
         background: '#f8f0ff',
-        accent: '#7d3c98'
+        accent: '#7d3c98',
+        textColor: '#5a2d6e'
       },
       orange: {
         primary: '#ff8c00',
         secondary: '#ffa500',
         background: '#fff8dc',
-        accent: '#e67e22'
+        accent: '#e67e22',
+        textColor: '#8B4513'
       },
       teal: {
         primary: '#20b2aa',
         secondary: '#afeeee',
         background: '#f0ffff',
-        accent: '#17a2b8'
+        accent: '#17a2b8',
+        textColor: '#004d4d'
       }
     };
 
     const colors = palettes[this.selectedPalette];
     
-    // CSS変数を設定
-    document.documentElement.style.setProperty('--primary-color', colors.primary);
-    document.documentElement.style.setProperty('--secondary-color', colors.secondary);
-    document.documentElement.style.setProperty('--background-color', colors.background);
-    document.documentElement.style.setProperty('--accent-color', colors.accent);
-
-    // 既存の色を動的に変更
     this.updateElementColors(colors);
   }
 
@@ -270,30 +269,8 @@ class WeddingDialog {
     document.documentElement.style.setProperty('--secondary-color', colors.secondary);
     document.documentElement.style.setProperty('--background-color', colors.background);
     document.documentElement.style.setProperty('--accent-color', colors.accent);
+    document.documentElement.style.setProperty('--text-color', colors.textColor);
     document.documentElement.style.setProperty('--light-text-color', colors.secondary);
-
-    // 追加で直接スタイルを適用する要素（CSS変数でカバーできない部分）
-    const timelineIcons = document.querySelectorAll('.timeline-icon');
-    timelineIcons.forEach(icon => {
-      icon.style.backgroundColor = colors.background;
-      icon.style.borderColor = colors.secondary;
-    });
-
-    const episodeCards = document.querySelectorAll('.episode-card');
-    episodeCards.forEach(card => {
-      card.style.backgroundColor = colors.background;
-      card.style.borderLeftColor = colors.secondary;
-    });
-
-    const qaItems = document.querySelectorAll('.qa-item');
-    qaItems.forEach(item => {
-      item.style.borderBottomColor = colors.secondary;
-    });
-
-    const qaIcons = document.querySelectorAll('.qa-icon');
-    qaIcons.forEach(icon => {
-      icon.style.color = colors.secondary;
-    });
   }
 
   replaceImage() {
