@@ -1,12 +1,12 @@
-/* サンプルサイト2のスタイル - モダン・ミニマル */
-.site-site2 .overlay-content-card {
+/* デザイン: モダン・ミニマル */
+.design-modern .overlay-content-card {
   border-radius: 0;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
   border: none;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.95) 100%);
 }
 
-.site-site2 .wedding-title {
+.design-modern .wedding-title {
   font-family: 'M PLUS Rounded 1c', sans-serif;
   text-transform: uppercase;
   letter-spacing: 4px;
@@ -18,7 +18,7 @@
   background-clip: text;
 }
 
-.site-site2 .section-title {
+.design-modern .section-title {
   font-family: 'M PLUS Rounded 1c', sans-serif;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -26,13 +26,13 @@
   font-size: 1.3rem;
 }
 
-.site-site2 .section-title::after {
+.design-modern .section-title::after {
   width: 100px;
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--secondary-color), transparent);
 }
 
-.site-site2 .profile-card {
+.design-modern .profile-card {
   border-radius: 0;
   border-left: 5px solid var(--primary-color);
   border-right: 1px solid #f0f0f0;
@@ -42,24 +42,24 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.site-site2 .profile-card:hover {
+.design-modern .profile-card:hover {
   transform: translateX(5px);
   box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
 }
 
-.site-site2 .profile-image-container {
+.design-modern .profile-image-container {
   border-radius: 0;
   border: none;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-.site-site2 .timeline-content {
+.design-modern .timeline-content {
   border-radius: 0;
   border-left: 3px solid var(--secondary-color);
   padding-left: 20px;
 }
 
-.site-site2 .episode-card {
+.design-modern .episode-card {
   border-radius: 0;
   border-left: 4px solid var(--primary-color);
   border-right: none;
@@ -68,13 +68,13 @@
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
 }
 
-.site-site2 .gallery-item {
+.design-modern .gallery-item {
   border-radius: 0;
   overflow: hidden;
   position: relative;
 }
 
-.site-site2 .gallery-item::before {
+.design-modern .gallery-item::before {
   content: '';
   position: absolute;
   top: 0;
@@ -87,12 +87,12 @@
   z-index: 1;
 }
 
-.site-site2 .gallery-item:hover::before {
+.design-modern .gallery-item:hover::before {
   opacity: 0.1;
 }
 
-/* サンプルサイト3のスタイル - エレガント・クラシック */
-.site-site3 .overlay-content-card {
+/* デザイン: エレガント・クラシック */
+.design-elegant .overlay-content-card {
   border-radius: 30px;
   border: 3px solid var(--secondary-color);
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
@@ -101,7 +101,7 @@
   overflow: hidden;
 }
 
-.site-site3 .overlay-content-card::before {
+.design-elegant .overlay-content-card::before {
   content: '';
   position: absolute;
   top: -50%;
@@ -114,12 +114,12 @@
   z-index: 0;
 }
 
-.site-site3 .overlay-content-card > * {
+.design-elegant .overlay-content-card > * {
   position: relative;
   z-index: 1;
 }
 
-.site-site3 .wedding-title {
+.design-elegant .wedding-title {
   font-family: 'Cormorant Garamond', serif;
   font-style: italic;
   transform: rotate(-1deg);
@@ -127,7 +127,7 @@
   position: relative;
 }
 
-.site-site3 .wedding-title::after {
+.design-elegant .wedding-title::after {
   content: '♡';
   position: absolute;
   top: -10px;
@@ -142,14 +142,14 @@
   50% { transform: scale(1.1); }
 }
 
-.site-site3 .section-title {
+.design-elegant .section-title {
   font-family: 'Cormorant Garamond', serif;
   font-style: italic;
   position: relative;
 }
 
-.site-site3 .section-title::before,
-.site-site3 .section-title::after {
+.design-elegant .section-title::before,
+.design-elegant .section-title::after {
   content: '❀';
   position: absolute;
   top: 50%;
@@ -158,15 +158,15 @@
   font-size: 1.2rem;
 }
 
-.site-site3 .section-title::before {
+.design-elegant .section-title::before {
   left: -30px;
 }
 
-.site-site3 .section-title::after {
+.design-elegant .section-title::after {
   right: -30px;
 }
 
-.site-site3 .profile-card {
+.design-elegant .profile-card {
   border-radius: 25px;
   transform: rotate(0.5deg);
   border: 2px solid var(--secondary-color);
@@ -176,7 +176,7 @@
   overflow: hidden;
 }
 
-.site-site3 .profile-card::before {
+.design-elegant .profile-card::before {
   content: '';
   position: absolute;
   top: 0;
@@ -187,29 +187,29 @@
   z-index: 1;
 }
 
-.site-site3 .profile-card:nth-child(even) {
+.design-elegant .profile-card:nth-child(even) {
   transform: rotate(-0.5deg);
 }
 
-.site-site3 .profile-card:hover {
+.design-elegant .profile-card:hover {
   transform: rotate(0deg) scale(1.02);
 }
 
-.site-site3 .profile-image-container {
+.design-elegant .profile-image-container {
   border-radius: 50%;
   border: 4px solid white;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
   overflow: hidden;
 }
 
-.site-site3 .timeline-content {
+.design-elegant .timeline-content {
   border-radius: 15px;
   border: 1px solid var(--secondary-color);
   position: relative;
   overflow: hidden;
 }
 
-.site-site3 .timeline-content::before {
+.design-elegant .timeline-content::before {
   content: '';
   position: absolute;
   top: 0;
@@ -221,12 +221,12 @@
   z-index: 0;
 }
 
-.site-site3 .timeline-content > * {
+.design-elegant .timeline-content > * {
   position: relative;
   z-index: 1;
 }
 
-.site-site3 .episode-card {
+.design-elegant .episode-card {
   border-radius: 20px;
   border: 2px solid var(--secondary-color);
   transform: rotate(0.3deg);
@@ -235,15 +235,15 @@
   overflow: hidden;
 }
 
-.site-site3 .episode-card:nth-child(even) {
+.design-elegant .episode-card:nth-child(even) {
   transform: rotate(-0.3deg);
 }
 
-.site-site3 .episode-card:hover {
+.design-elegant .episode-card:hover {
   transform: rotate(0deg);
 }
 
-.site-site3 .episode-card::after {
+.design-elegant .episode-card::after {
   content: '';
   position: absolute;
   top: 10px;
@@ -255,18 +255,18 @@
   opacity: 0.3;
 }
 
-.site-site3 .gallery-item {
+.design-elegant .gallery-item {
   border-radius: 50% 10% 50% 10%;
   overflow: hidden;
   transition: border-radius 0.3s ease, transform 0.3s ease;
 }
 
-.site-site3 .gallery-item:hover {
+.design-elegant .gallery-item:hover {
   border-radius: 10% 50% 10% 50%;
   transform: scale(1.05);
 }
 
-.site-site3 .qa-item {
+.design-elegant .qa-item {
   border-radius: 15px;
   padding: 15px;
   margin: 10px 0;
@@ -275,7 +275,7 @@
   border-bottom: none;
 }
 
-.site-site3 .qa-icon {
+.design-elegant .qa-icon {
   background: var(--primary-color);
   color: white;
   border-radius: 50%;
@@ -290,16 +290,16 @@
 }
 
 /* 共通のアニメーション効果 */
-.site-site2 .fade-in,
-.site-site3 .fade-in {
+.design-modern .fade-in,
+.design-elegant .fade-in {
   transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
-.site-site2 .fade-in.visible {
+.design-modern .fade-in.visible {
   animation: slideInLeft 0.8s ease-out;
 }
 
-.site-site3 .fade-in.visible {
+.design-elegant .fade-in.visible {
   animation: bounceIn 0.8s ease-out;
 }
 
@@ -334,17 +334,17 @@
 
 /* レスポンシブ対応 */
 @media (max-width: 480px) {
-  .site-site3 .section-title::before,
-  .site-site3 .section-title::after {
+  .design-elegant .section-title::before,
+  .design-elegant .section-title::after {
     display: none;
   }
   
-  .site-site2 .profile-card:hover {
+  .design-modern .profile-card:hover {
     transform: none;
   }
   
-  .site-site3 .profile-card,
-  .site-site3 .episode-card {
+  .design-elegant .profile-card,
+  .design-elegant .episode-card {
     transform: none !important;
   }
 }

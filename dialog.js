@@ -1,8 +1,15 @@
 // ダイアログ機能のJavaScript
 
+const siteDesigns = [
+  { id: 'site1', name: 'サンプル1', className: 'design-default' },
+  { id: 'site2', name: 'サンプル2', className: 'design-modern' },
+  { id: 'site3', name: 'サンプル3', className: 'design-elegant' }
+];
+
 class WeddingDialog {
   constructor() {
-    this.selectedSite = 'site1';
+    this.siteDesigns = siteDesigns;
+    this.selectedSite = this.siteDesigns[0].id;
     this.selectedPalette = 'pink';
     this.uploadedImage = null;
     this.init();
@@ -15,6 +22,12 @@ class WeddingDialog {
   }
 
   createDialog() {
+    const siteOptionsHTML = this.siteDesigns.map((design, index) => `
+      <div class="site-option ${index === 0 ? 'selected' : ''}" data-site="${design.id}">
+        ${design.name}
+      </div>
+    `).join('');
+
     const dialogHTML = `
       <div class="dialog-overlay" id="weddingDialog">
         <div class="dialog-content">
@@ -32,15 +45,7 @@ class WeddingDialog {
           <div class="dialog-section">
             <h3 class="dialog-section-title">サイトデザインを選択</h3>
             <div class="site-selection">
-              <div class="site-option selected" data-site="site1">
-                サンプル1
-              </div>
-              <div class="site-option" data-site="site2">
-                サンプル2
-              </div>
-              <div class="site-option" data-site="site3">
-                サンプル3
-              </div>
+              ${siteOptionsHTML}
             </div>
           </div>
 
@@ -281,60 +286,19 @@ class WeddingDialog {
   }
 
   applySiteDesign() {
-    // サイトデザインに応じてCSSクラスを追加
-    document.body.className = `site-${this.selectedSite}`;
-    
-    // 選択されたサイトに応じて追加のスタイルを適用
-    if (this.selectedSite === 'site2') {
-      this.applySite2Styles();
-    } else if (this.selectedSite === 'site3') {
-      this.applySite3Styles();
+    const selectedDesign = this.siteDesigns.find(d => d.id === this.selectedSite);
+    if (!selectedDesign) {
+      console.warn(`Site design with id "${this.selectedSite}" not found.`);
+      return;
     }
-  }
 
-  applySite2Styles() {
-    // サイト2用のスタイルを動的に適用
-    const style = document.createElement('style');
-    style.textContent = `
-      .site-site2 .overlay-content-card {
-        border-radius: 0;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-      }
-      .site-site2 .wedding-title {
-        font-family: 'M PLUS Rounded 1c', sans-serif;
-        text-transform: uppercase;
-        letter-spacing: 3px;
-      }
-      .site-site2 .profile-card {
-        border-radius: 0;
-        border-left: 5px solid var(--primary-color, #d14783);
-      }
-    `;
-    document.head.appendChild(style);
-  }
+    // 既存のデザインクラスをすべて削除
+    this.siteDesigns.forEach(design => {
+      document.body.classList.remove(design.className);
+    });
 
-  applySite3Styles() {
-    // サイト3用のスタイルを動的に適用
-    const style = document.createElement('style');
-    style.textContent = `
-      .site-site3 .overlay-content-card {
-        border-radius: 50px;
-        border: 3px solid var(--secondary-color, #ffb6c1);
-      }
-      .site-site3 .wedding-title {
-        font-family: 'Cormorant Garamond', serif;
-        font-style: italic;
-        transform: rotate(-2deg);
-      }
-      .site-site3 .profile-card {
-        border-radius: 25px;
-        transform: rotate(1deg);
-      }
-      .site-site3 .profile-card:nth-child(even) {
-        transform: rotate(-1deg);
-      }
-    `;
-    document.head.appendChild(style);
+    // 新しいデザインクラスを追加
+    document.body.classList.add(selectedDesign.className);
   }
 
   showDialog() {
