@@ -63,10 +63,10 @@ function initializeGalleryCarousel(gallerySection) {
 
   try {
     swiperInstance = new Swiper('.swiper', {
-      loop: false, // ループを一旦無効にして、センタリングの問題を切り分ける
-      slidesPerView: 'auto', // スライドの幅を自動調整
-      spaceBetween: 15,
-      centeredSlides: true, // アクティブなスライドを中央に配置
+      loop: true,
+      slidesPerView: 1,
+      spaceBetween: 10,
+      centeredSlides: true,
       breakpoints: {
         768: { slidesPerView: 3, spaceBetween: 30 },
         480: { slidesPerView: 2, spaceBetween: 20 }
