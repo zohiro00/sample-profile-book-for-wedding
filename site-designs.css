@@ -400,3 +400,40 @@
   }
 }
 
+/* Swiper Carousel Styles for Stylish Mono Theme */
+.design-stylish-mono .swiper {
+  width: 100%;
+  max-width: 900px; /* Or another appropriate max-width */
+  margin: 20px auto;
+  padding: 10px 0 40px 0; /* Add padding for navigation/pagination */
+}
+
+.design-stylish-mono .swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.design-stylish-mono .swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px; /* Match gallery item border radius */
+}
+
+.design-stylish-mono .swiper-button-next,
+.design-stylish-mono .swiper-button-prev {
+  color: var(--primary-color);
+}
+
+.design-stylish-mono .swiper-pagination-bullet {
+  background-color: var(--secondary-color);
+}
+
+.design-stylish-mono .swiper-pagination-bullet-active {
+  background-color: var(--primary-color);
+}
