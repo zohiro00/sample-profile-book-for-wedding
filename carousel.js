@@ -3,8 +3,6 @@ window.setupGalleryView = setupGalleryView;
 
 // Swiperインスタンスを保持する変数
 let swiperInstance = null;
-// DOMの元の状態を保存する変数
-let originalGalleryHTML = null;
 
 /**
  * ギャラリーの表示形式を設定するメイン関数
@@ -15,14 +13,6 @@ function setupGalleryView(viewType) {
   if (!gallerySection) {
     console.error('Photo gallery section not found.');
     return;
-  }
-
-  // 元のHTMLを初回のみ保存
-  if (!originalGalleryHTML) {
-    const galleryGrid = gallerySection.querySelector('.gallery-grid');
-    if (galleryGrid) {
-      originalGalleryHTML = galleryGrid.outerHTML;
-    }
   }
 
   if (viewType === 'carousel') {
@@ -37,21 +27,14 @@ function setupGalleryView(viewType) {
  * @param {HTMLElement} gallerySection
  */
 function initializeGalleryCarousel(gallerySection) {
-  // すでにカルーセルが存在する場合は何もしない
   if (swiperInstance) {
-    console.log('Carousel already initialized.');
-    return;
+    return; // すでに初期化済み
   }
 
   const galleryGrid = gallerySection.querySelector('.gallery-grid');
   if (!galleryGrid) {
     console.error('Gallery grid not found for initialization.');
     return;
-  }
-
-  // 元のHTMLを保存（まだ保存されていない場合）
-  if (!originalGalleryHTML) {
-    originalGalleryHTML = galleryGrid.outerHTML;
   }
 
   // Swiperが必要とするHTML構造に変更
@@ -72,19 +55,18 @@ function initializeGalleryCarousel(gallerySection) {
   const pagination = document.createElement('div');
   pagination.className = 'swiper-pagination';
 
-  // 新しい構造を組み立て
   gallerySection.appendChild(swiperContainer);
-  swiperContainer.appendChild(galleryGrid); // galleryGridをswiperContainerに移動
+  swiperContainer.appendChild(galleryGrid);
   swiperContainer.appendChild(prevButton);
   swiperContainer.appendChild(nextButton);
   swiperContainer.appendChild(pagination);
 
-  // Swiperを初期化
   try {
     swiperInstance = new Swiper('.swiper', {
       loop: true,
       slidesPerView: 1,
       spaceBetween: 10,
+      centeredSlides: true, // アクティブなスライドを中央に配置
       breakpoints: {
         768: { slidesPerView: 3, spaceBetween: 30 },
         480: { slidesPerView: 2, spaceBetween: 20 }
@@ -92,45 +74,55 @@ function initializeGalleryCarousel(gallerySection) {
       pagination: { el: '.swiper-pagination', clickable: true },
       navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
     });
-    console.log('Swiper initialized successfully.');
   } catch (e) {
     console.error('Failed to initialize Swiper:', e);
   }
 }
 
 /**
- * Swiperカルーセルを破棄し、元のグリッドレイアウトに戻す
+ * Swiperカルーセルを破棄し、グリッドレイアウトを動的に再生成する
  * @param {HTMLElement} gallerySection
  */
 function destroyGalleryCarousel(gallerySection) {
   if (swiperInstance) {
     swiperInstance.destroy(true, true);
     swiperInstance = null;
-    console.log('Swiper instance destroyed.');
   }
 
-  // Swiperが追加した要素を削除
+  // Swiperが追加した要素(.swiper)と、その中身(.gallery-grid)をすべて削除
   const swiperContainer = gallerySection.querySelector('.swiper');
   if (swiperContainer) {
     swiperContainer.remove();
   }
+  // もし.swiperの外に.gallery-gridが残っていた場合も削除
+  const existingGrid = gallerySection.querySelector('.gallery-grid');
+  if (existingGrid) {
+    existingGrid.remove();
+  }
 
-  // 元のHTMLで復元
-  if (originalGalleryHTML) {
-    // 既存のgallery-gridがあれば削除してから追加
-    const existingGrid = gallerySection.querySelector('.gallery-grid');
-    if(existingGrid) {
-      existingGrid.remove();
-    }
-    gallerySection.insertAdjacentHTML('beforeend', originalGalleryHTML);
+  // グリッドをプログラムで再生成する
+  const newGrid = document.createElement('div');
+  newGrid.className = 'gallery-grid';
 
-    // 復元した要素に再度コンテンツを適用する
-    if (window.applyContentData && window.weddingContentData) {
-      window.applyContentData(window.weddingContentData);
-    } else {
-      console.error('applyContentData or weddingContentData not available to restore grid view.');
-    }
+  for (let i = 1; i <= 6; i++) {
+    const item = document.createElement('div');
+    item.className = 'gallery-item fade-in';
+
+    const img = document.createElement('img');
+    img.className = 'gallery-image';
+    img.id = `gallery-image${i}`;
+    img.alt = `Gallery Photo ${i}`; // アクセシビリティのためaltテキストを追加
+
+    item.appendChild(img);
+    newGrid.appendChild(item);
+  }
+
+  gallerySection.appendChild(newGrid);
+
+  // 再生成した要素にコンテンツを適用する
+  if (window.applyContentData && window.weddingContentData) {
+    window.applyContentData(window.weddingContentData);
   } else {
-    console.error('Original gallery HTML not found, cannot restore.');
+    console.error('applyContentData or weddingContentData not available to restore grid view.');
   }
 }
