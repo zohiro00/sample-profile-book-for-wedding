@@ -1,4 +1,36 @@
 document.addEventListener("DOMContentLoaded", function () {
+  // グローバルにコンテンツデータを保持
+  window.weddingContentData = null;
+
+  // コンテンツを適用するグローバル関数
+  window.applyContentData = function(data) {
+    if (!data) {
+      console.error("No content data provided to apply.");
+      return;
+    }
+
+    // テキストの反映
+    for (const key in data.text) {
+      const el = document.getElementById(key);
+      if (el) {
+        el.innerHTML = data.text[key];
+      }
+    }
+
+    // パスの反映（画像）
+    for (const key in data.path) {
+      const el = document.getElementById(key);
+      if (el && el.tagName === 'IMG') {
+        el.setAttribute("src", data.path[key]);
+      }
+    }
+
+    // ページのtitleも自動で設定
+    if (data.text.title) {
+      document.title = data.text.title;
+    }
+  }
+
   // パスワード認証（簡易）
   // if (window.location.hostname !== "localhost" && window.location.hostname !== "127.0.0.1") {    const password = prompt("パスワードを入力してください:");
   //   if (password !== "0607") {
@@ -17,32 +49,8 @@ document.addEventListener("DOMContentLoaded", function () {
       return response.json();
     })
     .then(data => {
-      // テキストの反映
-      for (const key in data.text) {
-        const el = document.getElementById(key);
-        if (el) {
-          el.innerHTML = data.text[key]; // HTMLタグを許可
-        } else {
-          console.warn(`Element with ID "${key}" not found for text content.`);
-        }
-      }
-
-      // パスの反映（画像）
-      for (const key in data.path) {
-        const el = document.getElementById(key);
-        if (el && el.tagName === 'IMG') {
-          el.setAttribute("src", data.path[key]);
-        } else if (el) {
-           console.warn(`Element with ID "${key}" is not an IMG tag but path was provided.`);
-        } else {
-          console.warn(`Element with ID "${key}" not found for image path.`);
-        }
-      }
-
-      // ページのtitleも自動で設定
-      if (data.text.title) {
-        document.title = data.text.title;
-      }
+      window.weddingContentData = data; // データをグローバルに保存
+      window.applyContentData(window.weddingContentData); // コンテンツを適用
 
       // フェードインアニメーションの設定
       setupFadeInAnimation();

@@ -440,3 +440,31 @@
 .design-stylish-mono .swiper-pagination-bullet-active {
   background-color: var(--primary-color);
 }
+
+/* --- General Carousel Styles --- */
+/* These styles apply regardless of the selected site design */
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px; /* Give slides a consistent height */
+  background: #f9f9f9; /* A light background for slides */
+}
+
+.swiper-slide img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; /* Ensure the whole image is visible without distortion */
+  border-radius: 8px;
+}
+
+/* Apply theme colors to navigation and pagination */
+.swiper-button-next,
+.swiper-button-prev {
+  color: var(--primary-color) !important; /* Use important to override default inline styles */
+}
+
+.swiper-pagination-bullet-active {
+  background: var(--primary-color) !important; /* Use important to override default inline styles */
+}
