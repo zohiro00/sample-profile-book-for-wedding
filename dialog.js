@@ -11,6 +11,7 @@ class WeddingDialog {
     this.siteDesigns = siteDesigns;
     this.selectedSite = this.siteDesigns[0].id;
     this.selectedPalette = 'pink';
+    this.selectedView = 'carousel'; // デフォルトはカルーセル
     this.uploadedImage = null;
     this.init();
   }
@@ -113,6 +114,26 @@ class WeddingDialog {
             </div>
           </div>
 
+          <div class="dialog-section optional-settings-section">
+            <div class="optional-settings-toggle" id="optionalSettingsToggle">
+              <h3 class="dialog-section-title">任意設定</h3>
+              <span class="toggle-arrow">▼</span>
+            </div>
+            <div class="optional-settings-content" id="optionalSettingsContent" style="display: none;">
+              <h4 class="dialog-subsection-title">フォトギャラリーの表示形式</h4>
+              <div class="view-selection-group">
+                <label class="view-option">
+                  <input type="radio" name="view-type" value="carousel" checked>
+                  <span>カルーセル</span>
+                </label>
+                <label class="view-option">
+                  <input type="radio" name="view-type" value="list">
+                  <span>一覧表示</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
           <div class="dialog-buttons">
             <button class="dialog-button primary" id="applySettings">OK</button>
           </div>
@@ -172,6 +193,24 @@ class WeddingDialog {
     document.getElementById('applySettings').addEventListener('click', () => {
       this.applySettings();
     });
+
+    // 任意設定トグル
+    const toggle = document.getElementById('optionalSettingsToggle');
+    const content = document.getElementById('optionalSettingsContent');
+    const arrow = toggle.querySelector('.toggle-arrow');
+
+    toggle.addEventListener('click', () => {
+      const isHidden = content.style.display === 'none';
+      content.style.display = isHidden ? 'block' : 'none';
+      arrow.classList.toggle('open', isHidden);
+    });
+
+    // 表示形式選択
+    document.querySelectorAll('input[name="view-type"]').forEach(radio => {
+      radio.addEventListener('change', (e) => {
+        this.selectedView = e.target.value;
+      });
+    });
   }
 
   handleImageUpload(file) {
@@ -212,6 +251,13 @@ class WeddingDialog {
     
     // サイトデザインを適用
     this.applySiteDesign();
+
+    // ギャラリーの表示形式を設定
+    if (window.setupGalleryView) {
+      window.setupGalleryView(this.selectedView);
+    } else {
+      console.error('setupGalleryView function is not available.');
+    }
     
     // ダイアログを閉じる
     this.hideDialog();

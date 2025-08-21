@@ -1,50 +1,65 @@
-document.addEventListener('DOMContentLoaded', () => {
-  // We need to wait for the main script to apply the design class.
-  // A MutationObserver is the most robust way to do this.
+// グローバルスコープに関数を公開
+window.setupGalleryView = setupGalleryView;
 
-  const observer = new MutationObserver((mutationsList, observer) => {
-    for (const mutation of mutationsList) {
-      if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-        const body = document.body;
-        if (body.classList.contains('design-stylish-mono')) {
-          // The target design is active, initialize the carousel.
-          console.log('Stylish mono design detected, initializing carousel.');
-          initializeGalleryCarousel();
-          // We can disconnect the observer now that we've done our job.
-          observer.disconnect();
-          break; // Exit the loop
-        }
-      }
-    }
-  });
+// Swiperインスタンスを保持する変数
+let swiperInstance = null;
+// DOMの元の状態を保存する変数
+let originalGalleryHTML = null;
 
-  // Start observing the body for attribute changes.
-  observer.observe(document.body, { attributes: true });
-});
-
-function initializeGalleryCarousel() {
+/**
+ * ギャラリーの表示形式を設定するメイン関数
+ * @param {string} viewType 'carousel' または 'list'
+ */
+function setupGalleryView(viewType) {
   const gallerySection = document.querySelector('.photo-gallery-section');
   if (!gallerySection) {
-    console.error('Gallery section not found.');
+    console.error('Photo gallery section not found.');
+    return;
+  }
+
+  // 元のHTMLを初回のみ保存
+  if (!originalGalleryHTML) {
+    const galleryGrid = gallerySection.querySelector('.gallery-grid');
+    if (galleryGrid) {
+      originalGalleryHTML = galleryGrid.outerHTML;
+    }
+  }
+
+  if (viewType === 'carousel') {
+    initializeGalleryCarousel(gallerySection);
+  } else {
+    destroyGalleryCarousel(gallerySection);
+  }
+}
+
+/**
+ * Swiperカルーセルを初期化する
+ * @param {HTMLElement} gallerySection
+ */
+function initializeGalleryCarousel(gallerySection) {
+  // すでにカルーセルが存在する場合は何もしない
+  if (swiperInstance) {
+    console.log('Carousel already initialized.');
     return;
   }
 
   const galleryGrid = gallerySection.querySelector('.gallery-grid');
   if (!galleryGrid) {
-    console.error('Gallery grid not found.');
+    console.error('Gallery grid not found for initialization.');
     return;
   }
 
-  // 1. Restructure the HTML for Swiper
-  const galleryItems = Array.from(galleryGrid.children);
-  galleryGrid.className = 'swiper-wrapper'; // The grid becomes the wrapper
+  // 元のHTMLを保存（まだ保存されていない場合）
+  if (!originalGalleryHTML) {
+    originalGalleryHTML = galleryGrid.outerHTML;
+  }
 
-  // Wrap each item in a swiper-slide
-  galleryItems.forEach(item => {
-    item.className = 'swiper-slide';
+  // Swiperが必要とするHTML構造に変更
+  galleryGrid.classList.add('swiper-wrapper');
+  Array.from(galleryGrid.children).forEach(item => {
+    item.classList.add('swiper-slide');
   });
 
-  // Create the main swiper container and navigation elements
   const swiperContainer = document.createElement('div');
   swiperContainer.className = 'swiper';
 
@@ -57,51 +72,58 @@ function initializeGalleryCarousel() {
   const pagination = document.createElement('div');
   pagination.className = 'swiper-pagination';
 
-  // Assemble the new structure
-  swiperContainer.appendChild(galleryGrid); // Move the wrapper inside the container
+  // 新しい構造を組み立て
+  gallerySection.appendChild(swiperContainer);
+  swiperContainer.appendChild(galleryGrid); // galleryGridをswiperContainerに移動
   swiperContainer.appendChild(prevButton);
   swiperContainer.appendChild(nextButton);
   swiperContainer.appendChild(pagination);
 
-  // Replace the old grid container with the new swiper container
-  gallerySection.appendChild(swiperContainer);
-
-  // 2. Initialize Swiper
+  // Swiperを初期化
   try {
-    new Swiper('.swiper', {
-      // Options
+    swiperInstance = new Swiper('.swiper', {
       loop: true,
       slidesPerView: 1,
       spaceBetween: 10,
-
-      // Responsive breakpoints
       breakpoints: {
-        // when window width is >= 768px
-        768: {
-          slidesPerView: 3,
-          spaceBetween: 30
-        },
-        // when window width is >= 480px
-        480: {
-          slidesPerView: 2,
-          spaceBetween: 20
-        }
+        768: { slidesPerView: 3, spaceBetween: 30 },
+        480: { slidesPerView: 2, spaceBetween: 20 }
       },
-
-      // Pagination
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-      },
-
-      // Navigation arrows
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
+      pagination: { el: '.swiper-pagination', clickable: true },
+      navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
     });
     console.log('Swiper initialized successfully.');
   } catch (e) {
     console.error('Failed to initialize Swiper:', e);
+  }
+}
+
+/**
+ * Swiperカルーセルを破棄し、元のグリッドレイアウトに戻す
+ * @param {HTMLElement} gallerySection
+ */
+function destroyGalleryCarousel(gallerySection) {
+  if (swiperInstance) {
+    swiperInstance.destroy(true, true);
+    swiperInstance = null;
+    console.log('Swiper instance destroyed.');
+  }
+
+  // Swiperが追加した要素を削除
+  const swiperContainer = gallerySection.querySelector('.swiper');
+  if (swiperContainer) {
+    swiperContainer.remove();
+  }
+
+  // 元のHTMLで復元
+  if (originalGalleryHTML) {
+    // 既存のgallery-gridがあれば削除してから追加
+    const existingGrid = gallerySection.querySelector('.gallery-grid');
+    if(existingGrid) {
+      existingGrid.remove();
+    }
+    gallerySection.insertAdjacentHTML('beforeend', originalGalleryHTML);
+  } else {
+    console.error('Original gallery HTML not found, cannot restore.');
   }
 }
