@@ -451,17 +451,19 @@
 }
 
 .swiper-slide {
+  width: auto; /* slidesPerView: 'auto' のために幅を自動に */
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 300px; /* Give slides a consistent height */
-  background: #f9f9f9; /* A light background for slides */
+  /* 高さを削除し、画像のアスペクト比に依存させる */
 }
 
 .swiper-slide img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain; /* Ensure the whole image is visible without distortion */
+  max-width: 80vw; /* ビューポートの幅を基準に最大幅を指定 */
+  max-height: 60vh; /* ビューポートの高さを基準に最大高さを指定 */
+  width: auto;
+  height: auto;
+  object-fit: contain;
   border-radius: 8px;
 }
 

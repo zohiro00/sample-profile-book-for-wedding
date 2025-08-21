@@ -63,9 +63,9 @@ function initializeGalleryCarousel(gallerySection) {
 
   try {
     swiperInstance = new Swiper('.swiper', {
-      loop: true,
-      slidesPerView: 1,
-      spaceBetween: 10,
+      loop: false, // ループを一旦無効にして、センタリングの問題を切り分ける
+      slidesPerView: 'auto', // スライドの幅を自動調整
+      spaceBetween: 15,
       centeredSlides: true, // アクティブなスライドを中央に配置
       breakpoints: {
         768: { slidesPerView: 3, spaceBetween: 30 },
@@ -124,5 +124,10 @@ function destroyGalleryCarousel(gallerySection) {
     window.applyContentData(window.weddingContentData);
   } else {
     console.error('applyContentData or weddingContentData not available to restore grid view.');
+  }
+
+  // 新しく生成した要素にフェードインアニメーションを適用する
+  if (window.setupFadeInAnimation) {
+    window.setupFadeInAnimation();
   }
 }

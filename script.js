@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
   // フェードインアニメーションの関数
-  function setupFadeInAnimation() {
+  window.setupFadeInAnimation = function() {
     const fadeInElements = document.querySelectorAll('.fade-in');
 
     const observerOptions = {
