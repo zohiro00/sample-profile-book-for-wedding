@@ -47,6 +47,13 @@ document.addEventListener("DOMContentLoaded", function () {
       // フェードインアニメーションの設定
       setupFadeInAnimation();
 
+      // デフォルトのギャラリービューを設定
+      if (window.setupGalleryView) {
+        window.setupGalleryView('carousel');
+      } else {
+        console.warn('setupGalleryView is not available on initial load.');
+      }
+
     })
     .catch(error => {
       console.error("JSON読み込みまたは処理エラー:", error);

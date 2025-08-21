@@ -207,6 +207,64 @@
   font-weight: 500;
 }
 
+/* 任意設定 */
+.optional-settings-section {
+  border-top: 1px solid #eee;
+  padding-top: 20px;
+}
+
+.optional-settings-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.optional-settings-toggle .dialog-section-title {
+  margin-bottom: 0;
+  text-align: left;
+}
+
+.toggle-arrow {
+  font-size: 1rem;
+  color: #c75c8b;
+  transition: transform 0.3s ease;
+}
+
+.toggle-arrow.open {
+  transform: rotate(180deg);
+}
+
+.optional-settings-content {
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+  margin-top: 15px;
+}
+
+.dialog-subsection-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #6d4c41;
+  margin-bottom: 10px;
+}
+
+.view-selection-group {
+  display: flex;
+  gap: 20px;
+  padding-left: 10px;
+}
+
+.view-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.view-option input[type="radio"] {
+  accent-color: #d14783;
+}
+
 /* ボタン */
 .dialog-buttons {
   display: flex;
