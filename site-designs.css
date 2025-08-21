@@ -400,76 +400,43 @@
   }
 }
 
-/* Swiper Carousel Styles for Stylish Mono Theme */
-.design-stylish-mono .swiper {
+/* General Carousel Styles (applied when body has .gallery-view-carousel) */
+.gallery-view-carousel .swiper {
   width: 100%;
-  max-width: 900px; /* Or another appropriate max-width */
+  max-width: 900px;
   margin: 20px auto;
-  padding: 10px 0 40px 0; /* Add padding for navigation/pagination */
+  padding: 10px 0 40px 0;
 }
 
-.design-stylish-mono .swiper-slide {
+.gallery-view-carousel .swiper-slide {
   text-align: center;
   font-size: 18px;
   background: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 250px; /* Set a fixed height for all slides */
+  height: 250px;
 }
 
-.design-stylish-mono .swiper-slide img {
+.gallery-view-carousel .swiper-slide img {
   display: block;
   max-width: 100%;
   max-height: 100%;
   width: auto;
   height: auto;
-  object-fit: contain; /* Ensure the whole image is visible */
-  border-radius: 8px; /* Match gallery item border radius */
+  object-fit: contain;
+  border-radius: 8px;
 }
 
-.design-stylish-mono .swiper-button-next,
-.design-stylish-mono .swiper-button-prev {
+.gallery-view-carousel .swiper-button-next,
+.gallery-view-carousel .swiper-button-prev {
   color: var(--primary-color);
 }
 
-.design-stylish-mono .swiper-pagination-bullet {
+.gallery-view-carousel .swiper-pagination-bullet {
   background-color: var(--secondary-color);
 }
 
-.design-stylish-mono .swiper-pagination-bullet-active {
+.gallery-view-carousel .swiper-pagination-bullet-active {
   background-color: var(--primary-color);
-}
-
-/* --- General Carousel Styles --- */
-/* These styles apply regardless of the selected site design */
-
-.swiper {
-  width: 100%;
-  padding: 10px 0 40px 0;
-  margin: 0 auto;
-}
-
-.swiper-slide {
-  height: 300px; /* Set a consistent height for slides */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden; /* Hide parts of the image that overflow the slide */
-}
-
-.swiper-slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Cover the slide area, cropping as needed, but not distorting */
-}
-
-/* Apply theme colors to navigation and pagination */
-.swiper-button-next,
-.swiper-button-prev {
-  color: var(--primary-color) !important;
-}
-
-.swiper-pagination-bullet-active {
-  background: var(--primary-color) !important;
 }

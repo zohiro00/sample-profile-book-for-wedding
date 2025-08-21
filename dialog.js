@@ -166,39 +166,19 @@ class WeddingDialog {
     // 画像アップロード
     const uploadArea = document.getElementById('imageUploadArea');
     const fileInput = document.getElementById('imageInput');
-
     uploadArea.addEventListener('click', () => fileInput.click());
-
-    fileInput.addEventListener('change', (e) => {
-      this.handleImageUpload(e.target.files[0]);
-    });
-
-    // ドラッグ&ドロップ
-    uploadArea.addEventListener('dragover', (e) => {
-      e.preventDefault();
-      uploadArea.classList.add('dragover');
-    });
-
-    uploadArea.addEventListener('dragleave', () => {
-      uploadArea.classList.remove('dragover');
-    });
-
-    uploadArea.addEventListener('drop', (e) => {
-      e.preventDefault();
-      uploadArea.classList.remove('dragover');
-      this.handleImageUpload(e.dataTransfer.files[0]);
-    });
+    fileInput.addEventListener('change', (e) => this.handleImageUpload(e.target.files[0]));
+    uploadArea.addEventListener('dragover', (e) => { e.preventDefault(); uploadArea.classList.add('dragover'); });
+    uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('dragover'));
+    uploadArea.addEventListener('drop', (e) => { e.preventDefault(); uploadArea.classList.remove('dragover'); this.handleImageUpload(e.dataTransfer.files[0]); });
 
     // OK ボタン
-    document.getElementById('applySettings').addEventListener('click', () => {
-      this.applySettings();
-    });
+    document.getElementById('applySettings').addEventListener('click', () => this.applySettings());
 
     // 任意設定トグル
     const toggle = document.getElementById('optionalSettingsToggle');
     const content = document.getElementById('optionalSettingsContent');
     const arrow = toggle.querySelector('.toggle-arrow');
-
     toggle.addEventListener('click', () => {
       const isHidden = content.style.display === 'none';
       content.style.display = isHidden ? 'block' : 'none';
@@ -218,18 +198,13 @@ class WeddingDialog {
       alert('画像ファイルを選択してください。');
       return;
     }
-
-    // ファイルサイズチェック（5MB以下）
     if (file.size > 5 * 1024 * 1024) {
       alert('ファイルサイズが大きすぎます。5MB以下の画像を選択してください。');
       return;
     }
-
     const reader = new FileReader();
     reader.onload = (e) => {
       this.uploadedImage = e.target.result;
-      
-      // プレビュー表示
       const uploadArea = document.getElementById('imageUploadArea');
       uploadArea.innerHTML = `
         <img src="${this.uploadedImage}" class="preview-image" alt="アップロード画像">
@@ -241,81 +216,36 @@ class WeddingDialog {
   }
 
   applySettings() {
-    // カラーパレットを適用
     this.applyColorPalette();
-    
-    // 画像を置き換え
     if (this.uploadedImage) {
       this.replaceImage();
     }
-    
-    // サイトデザインを適用
     this.applySiteDesign();
 
-    // ギャラリーの表示形式を設定
-    if (window.setupGalleryView) {
-      window.setupGalleryView(this.selectedView);
+    // ギャラリー表示形式を適用
+    if (this.selectedView === 'carousel') {
+      document.body.classList.add('gallery-view-carousel');
     } else {
-      console.error('setupGalleryView function is not available.');
+      document.body.classList.remove('gallery-view-carousel');
     }
-    
-    // ダイアログを閉じる
+
     this.hideDialog();
   }
 
   applyColorPalette() {
     const palettes = {
-      pink: {
-        primary: '#d14783',
-        secondary: '#ffb6c1',
-        background: '#fff0f5',
-        accent: '#c75c8b',
-        textColor: '#7d415d'
-      },
-      blue: {
-        primary: '#4a90e2',
-        secondary: '#87ceeb',
-        background: '#f0f8ff',
-        accent: '#2c5aa0',
-        textColor: '#1c3d5a'
-      },
-      green: {
-        primary: '#5cb85c',
-        secondary: '#90ee90',
-        background: '#f0fff0',
-        accent: '#449d44',
-        textColor: '#2e6b2e'
-      },
-      purple: {
-        primary: '#8e44ad',
-        secondary: '#dda0dd',
-        background: '#f8f0ff',
-        accent: '#7d3c98',
-        textColor: '#5a2d6e'
-      },
-      orange: {
-        primary: '#ff8c00',
-        secondary: '#ffa500',
-        background: '#fff8dc',
-        accent: '#e67e22',
-        textColor: '#8B4513'
-      },
-      teal: {
-        primary: '#20b2aa',
-        secondary: '#afeeee',
-        background: '#f0ffff',
-        accent: '#17a2b8',
-        textColor: '#004d4d'
-      }
+      pink: { primary: '#d14783', secondary: '#ffb6c1', background: '#fff0f5', accent: '#c75c8b', textColor: '#7d415d' },
+      blue: { primary: '#4a90e2', secondary: '#87ceeb', background: '#f0f8ff', accent: '#2c5aa0', textColor: '#1c3d5a' },
+      green: { primary: '#5cb85c', secondary: '#90ee90', background: '#f0fff0', accent: '#449d44', textColor: '#2e6b2e' },
+      purple: { primary: '#8e44ad', secondary: '#dda0dd', background: '#f8f0ff', accent: '#7d3c98', textColor: '#5a2d6e' },
+      orange: { primary: '#ff8c00', secondary: '#ffa500', background: '#fff8dc', accent: '#e67e22', textColor: '#8B4513' },
+      teal: { primary: '#20b2aa', secondary: '#afeeee', background: '#f0ffff', accent: '#17a2b8', textColor: '#004d4d' }
     };
-
     const colors = palettes[this.selectedPalette];
-    
     this.updateElementColors(colors);
   }
 
   updateElementColors(colors) {
-    // CSS変数を更新
     document.documentElement.style.setProperty('--primary-color', colors.primary);
     document.documentElement.style.setProperty('--secondary-color', colors.secondary);
     document.documentElement.style.setProperty('--background-color', colors.background);
@@ -333,41 +263,25 @@ class WeddingDialog {
 
   applySiteDesign() {
     const selectedDesign = this.siteDesigns.find(d => d.id === this.selectedSite);
-    if (!selectedDesign) {
-      console.warn(`Site design with id "${this.selectedSite}" not found.`);
-      return;
-    }
-
-    // 既存のデザインクラスをすべて削除
-    this.siteDesigns.forEach(design => {
-      document.body.classList.remove(design.className);
-    });
-
-    // 新しいデザインクラスを追加
+    if (!selectedDesign) return;
+    this.siteDesigns.forEach(design => document.body.classList.remove(design.className));
     document.body.classList.add(selectedDesign.className);
   }
 
   showDialog() {
+    // デフォルトでカルーセルビューを適用
+    document.body.classList.add('gallery-view-carousel');
     const dialog = document.getElementById('weddingDialog');
-    setTimeout(() => {
-      dialog.classList.add('show');
-    }, 100);
+    setTimeout(() => dialog.classList.add('show'), 100);
   }
 
   hideDialog() {
     const dialog = document.getElementById('weddingDialog');
     dialog.classList.remove('show');
-    setTimeout(() => {
-      dialog.remove();
-    }, 300);
+    setTimeout(() => dialog.remove(), 300);
   }
 }
 
-// ページ読み込み完了後にダイアログを表示
 document.addEventListener('DOMContentLoaded', () => {
-  // 既存のコンテンツ読み込み後にダイアログを表示
-  setTimeout(() => {
-    new WeddingDialog();
-  }, 500);
+  setTimeout(() => new WeddingDialog(), 500);
 });
-

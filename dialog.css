@@ -207,10 +207,50 @@
   font-weight: 500;
 }
 
+/* ボタン */
+.dialog-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.dialog-button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Noto Serif JP', serif;
+}
+
+.dialog-button.primary {
+  background: #d14783;
+  color: white;
+}
+
+.dialog-button.primary:hover {
+  background: #c75c8b;
+  transform: translateY(-2px);
+}
+
+.dialog-button.secondary {
+  background: #f5f5f5;
+  color: #6d4c41;
+  border: 1px solid #ddd;
+}
+
+.dialog-button.secondary:hover {
+  background: #e0e0e0;
+}
+
 /* 任意設定 */
 .optional-settings-section {
   border-top: 1px solid #eee;
   padding-top: 20px;
+  margin-top: 20px;
 }
 
 .optional-settings-toggle {
@@ -263,45 +303,6 @@
 
 .view-option input[type="radio"] {
   accent-color: #d14783;
-}
-
-/* ボタン */
-.dialog-buttons {
-  display: flex;
-  gap: 15px;
-  justify-content: center;
-  margin-top: 30px;
-}
-
-.dialog-button {
-  padding: 12px 25px;
-  border: none;
-  border-radius: 25px;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-family: 'Noto Serif JP', serif;
-}
-
-.dialog-button.primary {
-  background: #d14783;
-  color: white;
-}
-
-.dialog-button.primary:hover {
-  background: #c75c8b;
-  transform: translateY(-2px);
-}
-
-.dialog-button.secondary {
-  background: #f5f5f5;
-  color: #6d4c41;
-  border: 1px solid #ddd;
-}
-
-.dialog-button.secondary:hover {
-  background: #e0e0e0;
 }
 
 /* レスポンシブ対応 */
