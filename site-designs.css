@@ -128,12 +128,7 @@
 }
 
 .design-stylish-mono .gallery-item img {
-  filter: grayscale(100%);
   transition: filter 0.3s ease;
-}
-
-.design-stylish-mono .gallery-item:hover img {
-  filter: grayscale(0%);
 }
 
 .design-stylish-mono .gallery-item:hover {
