@@ -80,6 +80,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Restore the original gallery HTML
     if (originalGalleryHTML) {
       gallerySection.insertAdjacentHTML('beforeend', originalGalleryHTML);
+      // Re-initialize animations for the new elements
+      if (window.setupFadeInAnimation) {
+        window.setupFadeInAnimation();
+      }
     }
   }
 
