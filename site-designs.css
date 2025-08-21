@@ -446,33 +446,30 @@
 
 .swiper {
   width: 100%;
-  padding: 10px 0 40px 0; /* Add padding for navigation/pagination */
-  margin: 0 auto; /* Ensure the container is centered */
+  padding: 10px 0 40px 0;
+  margin: 0 auto;
 }
 
 .swiper-slide {
-  width: auto; /* slidesPerView: 'auto' のために幅を自動に */
+  height: 300px; /* Set a consistent height for slides */
   display: flex;
   justify-content: center;
   align-items: center;
-  /* 高さを削除し、画像のアスペクト比に依存させる */
+  overflow: hidden; /* Hide parts of the image that overflow the slide */
 }
 
 .swiper-slide img {
-  max-width: 80vw; /* ビューポートの幅を基準に最大幅を指定 */
-  max-height: 60vh; /* ビューポートの高さを基準に最大高さを指定 */
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  border-radius: 8px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Cover the slide area, cropping as needed, but not distorting */
 }
 
 /* Apply theme colors to navigation and pagination */
 .swiper-button-next,
 .swiper-button-prev {
-  color: var(--primary-color) !important; /* Use important to override default inline styles */
+  color: var(--primary-color) !important;
 }
 
 .swiper-pagination-bullet-active {
-  background: var(--primary-color) !important; /* Use important to override default inline styles */
+  background: var(--primary-color) !important;
 }
