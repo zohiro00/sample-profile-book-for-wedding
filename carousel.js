@@ -123,6 +123,13 @@ function destroyGalleryCarousel(gallerySection) {
       existingGrid.remove();
     }
     gallerySection.insertAdjacentHTML('beforeend', originalGalleryHTML);
+
+    // 復元した要素に再度コンテンツを適用する
+    if (window.applyContentData && window.weddingContentData) {
+      window.applyContentData(window.weddingContentData);
+    } else {
+      console.error('applyContentData or weddingContentData not available to restore grid view.');
+    }
   } else {
     console.error('Original gallery HTML not found, cannot restore.');
   }
