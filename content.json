@@ -57,11 +57,14 @@
     "qa3-answer": "新郎：甘いものと面白い話を持ってくる<br>新婦：自分も不機嫌になる",
     "qa4-question": "結婚式の準備で大変だったことは？",
     "qa4-answer": "新郎：サイト作成、AI動画編集<br>新婦：歯列矯正、ドレス選び",
+    "seating-chart-title": "SEATING CHART",
+    "photo-gallery-title": "PHOTO GALLERY",
     "footer-text": "Thank you for celebrating with us!"
   },
   "path": {
     "ribbon-image": "images/ribbon2.png",
     "couple-photo": "images/profile_image_07_02.png",
+    "seating-chart-image": "images/sample-seat-map-01.png",
     "decoration1-image": "images/decoration.png",
     "profile1-image": "images/profile_image_01_01.png",
     "profile2-image": "images/profile_image_09_01.png",

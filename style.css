@@ -557,6 +557,121 @@ body {
   margin-bottom: 4px;
 }
 
+/* SEATING CHART Section */
+.seating-chart-section {
+  margin-bottom: 30px;
+  padding: 0 5px;
+}
+
+.seating-chart-container {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.seating-chart-container:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.seating-chart-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Seating Chart Modal */
+.seating-chart-modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.85);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.seating-chart-modal-content {
+  margin: auto;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+#modal-seating-chart-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  cursor: grab;
+}
+
+#modal-seating-chart-image:active {
+    cursor: grabbing;
+}
+
+
+.seating-chart-close-btn {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.seating-chart-close-btn:hover,
+.seating-chart-close-btn:focus {
+  color: #bbb;
+  text-decoration: none;
+}
+
+/* Table Jump Controls */
+.table-jump-controls-container {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  gap: 8px;
+  z-index: 1001;
+}
+
+.table-jump-btn {
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #333;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.table-jump-btn:hover {
+  background-color: white;
+  transform: scale(1.05);
+}
+
 /* PHOTO GALLERY Section */
 .photo-gallery-section {
   margin-bottom: 40px;
