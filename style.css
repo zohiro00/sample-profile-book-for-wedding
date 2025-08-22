@@ -646,10 +646,14 @@ body {
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
+  width: 90%;
+  max-width: 500px;
   background-color: rgba(0, 0, 0, 0.5);
   padding: 10px;
   border-radius: 10px;
   display: flex;
+  flex-wrap: wrap; /* Allow buttons to wrap */
+  justify-content: center; /* Center the buttons */
   gap: 8px;
   z-index: 1001;
 }
@@ -657,19 +661,26 @@ body {
 .table-jump-btn {
   background-color: rgba(255, 255, 255, 0.8);
   color: #333;
-  border: none;
+  border: 2px solid transparent; /* Add transparent border for active state */
   border-radius: 5px;
   padding: 8px 12px;
   font-family: 'M PLUS Rounded 1c', sans-serif;
   font-size: 0.8rem;
   font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
+  transition: background-color 0.3s, transform 0.2s, border-color 0.3s;
 }
 
 .table-jump-btn:hover {
   background-color: white;
   transform: scale(1.05);
+}
+
+.table-jump-btn.active {
+  background-color: var(--secondary-color); /* Use a theme color */
+  color: var(--text-color);
+  font-weight: 700;
+  border-color: var(--primary-color); /* Use a theme color */
 }
 
 /* PHOTO GALLERY Section */
