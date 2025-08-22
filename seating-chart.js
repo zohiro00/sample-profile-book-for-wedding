@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const pin = document.getElementById("seating-chart-pin");
 
   let panzoomInstance = null;
+  let targetPinCoords = null; // Store {x, y} of the target table in image pixels
 
   const tableCoordinates = [
     { x: 0.125, y: 0.36 }, { x: 0.375, y: 0.36 }, { x: 0.625, y: 0.36 }, { x: 0.875, y: 0.36 },
@@ -24,12 +25,33 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  function updatePinPosition() {
+    if (!panzoomInstance || !targetPinCoords) {
+      pin.style.display = 'none';
+      return;
+    }
+
+    const transform = panzoomInstance.getTransform();
+    const pinWidth = pin.offsetWidth;
+    const pinHeight = pin.offsetHeight;
+
+    // Calculate the on-screen position of the target coordinate
+    const screenX = transform.x + targetPinCoords.x * transform.scale;
+    const screenY = transform.y + targetPinCoords.y * transform.scale;
+
+    // Position the pin's anchor point (bottom-center) on the calculated screen position
+    pin.style.left = `${screenX - (pinWidth / 2)}px`;
+    pin.style.top = `${screenY - pinHeight}px`;
+
+    // The pin's rotation is now handled by its own transform, separate from the position
+    pin.style.transform = `rotate(-45deg) scale(${transform.scale})`;
+  }
+
   function handleTableJump(event) {
     const clickedBtn = event.target.closest('.table-jump-btn');
     if (!clickedBtn || !panzoomInstance) return;
 
-    const allBtns = controlsContainer.querySelectorAll('.table-jump-btn');
-    allBtns.forEach(btn => btn.classList.remove('active'));
+    controlsContainer.querySelectorAll('.table-jump-btn').forEach(btn => btn.classList.remove('active'));
     clickedBtn.classList.add('active');
 
     const tableIndex = parseInt(clickedBtn.dataset.tableIndex, 10);
@@ -41,79 +63,71 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (!imageWidth || !imageHeight) return;
 
-    const absX = coords.x * imageWidth;
-    const absY = coords.y * imageHeight;
+    // Store the target coordinates for the 'transform' event handler
+    targetPinCoords = {
+      x: coords.x * imageWidth,
+      y: coords.y * imageHeight
+    };
 
-    // --- Pin Logic ---
-    // Position the pin relative to the image itself.
-    // We adjust for the pin's own dimensions to center its point on the coordinates.
-    const pinWidth = pin.offsetWidth;
-    const pinHeight = pin.offsetHeight;
-    pin.style.left = `${absX}px`;
-    pin.style.top = `${absY}px`;
+    // Show the pin and restart its animation
     pin.style.display = 'block';
-
-    // Force reflow to restart the animation
     pin.style.animation = 'none';
-    pin.offsetHeight; /* trigger reflow */
+    pin.offsetHeight; // Trigger reflow
     pin.style.animation = null;
 
-
-    // --- Pan & Zoom Logic ---
     const viewportWidth = modal.clientWidth;
     const viewportHeight = modal.clientHeight;
-    const newX = (viewportWidth / 2) - (absX * targetScale);
-    const newY = (viewportHeight / 2) - (absY * targetScale);
+    const newX = (viewportWidth / 2) - (targetPinCoords.x * targetScale);
+    const newY = (viewportHeight / 2) - (targetPinCoords.y * targetScale);
 
     panzoomInstance.smoothZoom(viewportWidth / 2, viewportHeight / 2, targetScale);
     panzoomInstance.smoothMoveTo(newX, newY);
   }
 
+  // This is the correct, non-intrusive way to handle the pin
+  function initializePanzoom() {
+    if (panzoomInstance) panzoomInstance.dispose();
+
+    panzoomInstance = panzoom(modalImg, {
+      maxZoom: 5,
+      minZoom: 0.5,
+      autocenter: true,
+      bounds: true,
+      boundsPadding: 0.05,
+    });
+
+    panzoomInstance.on('transform', updatePinPosition);
+    panzoomInstance.on('panend', updatePinPosition);
+    panzoomInstance.on('zoomend', updatePinPosition);
+  }
+
   img.onclick = function () {
     modal.style.display = "block";
-    modalImg.src = this.src;
 
-    modalImg.onload = () => {
-      if (panzoomInstance) panzoomInstance.dispose();
-      // The pin is a child of the panzoom element's parent.
-      // We need to make sure panzoom is initialized on the image, not the container.
-      panzoomInstance = panzoom(modalImg, {
-        maxZoom: 5,
-        minZoom: 0.5,
-        autocenter: true,
-        bounds: true,
-        boundsPadding: 0.05,
-        // Make the panzoom element the image's direct container
-        // Panzoom wraps the element, so we need to put the pin inside the wrapper.
-        // The simplest way is to have the pin outside and calculate its position,
-        // but sticking it to the image is better. Let's adjust HTML/CSS if needed.
-        // The current HTML has the pin as a sibling of the image, inside the modal-content.
-        // Let's verify panzoom's behavior. It wraps the target element in a 'panzoom-element'.
-        // The pin should be inside that wrapper. The easiest way is to re-parent it.
-        const panzoomWrapper = modalImg.parentElement;
-        panzoomWrapper.style.position = 'relative'; // Ensure the wrapper is a positioning context
-        panzoomWrapper.appendChild(pin);
-      });
-    };
+    // Handle cached images not firing 'onload'
+    if (modalImg.complete) {
+        initializePanzoom();
+    } else {
+        modalImg.onload = initializePanzoom;
+    }
+    modalImg.src = this.src;
   };
 
   function closeModal() {
     modal.style.display = "none";
-    pin.style.display = 'none'; // Hide the pin
+    targetPinCoords = null; // Reset pin target
+    updatePinPosition(); // This will hide the pin
+
     if (panzoomInstance) {
       panzoomInstance.dispose();
       panzoomInstance = null;
     }
-    const allBtns = controlsContainer.querySelectorAll('.table-jump-btn');
-    allBtns.forEach(btn => btn.classList.remove('active'));
+    controlsContainer.querySelectorAll('.table-jump-btn').forEach(btn => btn.classList.remove('active'));
   }
 
   closeBtn.onclick = closeModal;
-
   modal.addEventListener('click', function(event) {
-    if (event.target === modal) {
-      closeModal();
-    }
+    if (event.target === modal) closeModal();
   });
 
   createJumpButtons();
