@@ -608,6 +608,45 @@ body {
   display: block;
   width: 100%;
   height: 100%;
+  position: relative; /* Needed for positioning the pin inside */
+  overflow: hidden; /* To contain the image and pin */
+}
+
+/* The parent of modal-seating-chart-image is what's transformed by panzoom */
+.seating-chart-modal-content > .panzoom-element > #modal-seating-chart-image {
+    /* Nothing specific needed here, panzoom handles it */
+}
+
+.seating-chart-pin {
+  display: none; /* Hidden by default */
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background-color: var(--primary-color);
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  border: 2px solid white;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  /* Center the pin point, not the div itself */
+  margin-left: -15px;
+  margin-top: -30px;
+  /* Disable pointer events so it doesn't interfere with panzoom */
+  pointer-events: none;
+  z-index: 10; /* Ensure it's above the image */
+
+  /* Animation */
+  animation: drop-pin 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes drop-pin {
+    from {
+        transform: translateY(-100px) scale(1.5) rotate(-45deg);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0) scale(1) rotate(-45deg);
+        opacity: 1;
+    }
 }
 
 #modal-seating-chart-image {
