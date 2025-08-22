@@ -14,6 +14,12 @@ document.addEventListener("DOMContentLoaded", function () {
     { x: 0.125, y: 0.79 }, { x: 0.375, y: 0.79 }, { x: 0.625, y: 0.79 }, { x: 0.875, y: 0.79 },
   ];
 
+  function setButtonsDisabled(disabled) {
+    controlsContainer.querySelectorAll('.table-jump-btn').forEach(btn => {
+        btn.disabled = disabled;
+    });
+  }
+
   function createJumpButtons() {
     controlsContainer.innerHTML = '';
     for (let i = 0; i < tableCoordinates.length; i++) {
@@ -30,18 +36,11 @@ document.addEventListener("DOMContentLoaded", function () {
       pin.style.display = 'none';
       return;
     }
-
     const transform = panzoomInstance.getTransform();
-    const pinWidth = pin.offsetWidth;
-    const pinHeight = pin.offsetHeight;
-
-    const screenX = transform.x + targetPinCoords.x * transform.scale;
-    const screenY = transform.y + targetPinCoords.y * transform.scale;
-
-    pin.style.left = `${screenX - (pinWidth / 2)}px`;
-    pin.style.top = `${screenY - pinHeight}px`;
-
+    pin.style.left = `${transform.x + targetPinCoords.x * transform.scale}px`;
+    pin.style.top = `${transform.y + targetPinCoords.y * transform.scale}px`;
     pin.style.transform = `rotate(-45deg) scale(${transform.scale})`;
+    pin.style.transformOrigin = `50% 100%`;
   }
 
   function handleTableJump(event) {
@@ -80,7 +79,10 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function initializePanzoom() {
-    if (panzoomInstance) panzoomInstance.dispose();
+    // This function can be called multiple times, so we clean up first.
+    if (panzoomInstance) {
+        panzoomInstance.dispose();
+    }
 
     panzoomInstance = panzoom(modalImg, {
       maxZoom: 5,
@@ -91,36 +93,43 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     panzoomInstance.on('transform', updatePinPosition);
-    panzoomInstance.on('panend', updatePinPosition);
-    panzoomInstance.on('zoomend', updatePinPosition);
+
+    // Enable buttons now that panzoom is ready
+    setButtonsDisabled(false);
   }
 
   img.onclick = function () {
     modal.style.display = "block";
+    setButtonsDisabled(true); // Disable buttons until panzoom is ready
 
-    // Set the onload event handler *before* setting the src
-    modalImg.onload = initializePanzoom;
+    // Define onload handler
+    const onImgLoad = () => {
+        // Ensure this doesn't run again if called manually
+        modalImg.onload = null;
+        initializePanzoom();
+    };
+    modalImg.onload = onImgLoad;
 
-    // Set the src to trigger loading
+    // Set src to trigger loading
     modalImg.src = this.src;
 
-    // If the image is already in the browser cache, the load event might not fire.
-    // This check ensures the handler is called regardless.
+    // If image is cached, onload might not fire.
     if (modalImg.complete) {
-      initializePanzoom();
+      onImgLoad();
     }
   };
 
   function closeModal() {
     modal.style.display = "none";
-    targetPinCoords = null; // Reset pin target
-    updatePinPosition(); // This will hide the pin
+    targetPinCoords = null;
+    if (pin) pin.style.display = 'none';
 
     if (panzoomInstance) {
       panzoomInstance.dispose();
       panzoomInstance = null;
     }
     controlsContainer.querySelectorAll('.table-jump-btn').forEach(btn => btn.classList.remove('active'));
+    setButtonsDisabled(true); // Reset for next open
   }
 
   closeBtn.onclick = closeModal;
@@ -129,5 +138,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   createJumpButtons();
+  setButtonsDisabled(true); // Initially disabled
   controlsContainer.addEventListener('click', handleTableJump);
 });
