@@ -677,6 +677,13 @@ body {
   transform: scale(1.05);
 }
 
+.table-jump-btn:disabled {
+  background-color: rgba(200, 200, 200, 0.5);
+  color: #888;
+  cursor: not-allowed;
+  transform: none;
+}
+
 .table-jump-btn.active {
   background-color: var(--secondary-color); /* Use a theme color */
   color: var(--text-color);
