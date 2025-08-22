@@ -35,15 +35,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const pinWidth = pin.offsetWidth;
     const pinHeight = pin.offsetHeight;
 
-    // Calculate the on-screen position of the target coordinate
     const screenX = transform.x + targetPinCoords.x * transform.scale;
     const screenY = transform.y + targetPinCoords.y * transform.scale;
 
-    // Position the pin's anchor point (bottom-center) on the calculated screen position
     pin.style.left = `${screenX - (pinWidth / 2)}px`;
     pin.style.top = `${screenY - pinHeight}px`;
 
-    // The pin's rotation is now handled by its own transform, separate from the position
     pin.style.transform = `rotate(-45deg) scale(${transform.scale})`;
   }
 
@@ -63,13 +60,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (!imageWidth || !imageHeight) return;
 
-    // Store the target coordinates for the 'transform' event handler
     targetPinCoords = {
       x: coords.x * imageWidth,
       y: coords.y * imageHeight
     };
 
-    // Show the pin and restart its animation
     pin.style.display = 'block';
     pin.style.animation = 'none';
     pin.offsetHeight; // Trigger reflow
@@ -84,7 +79,6 @@ document.addEventListener("DOMContentLoaded", function () {
     panzoomInstance.smoothMoveTo(newX, newY);
   }
 
-  // This is the correct, non-intrusive way to handle the pin
   function initializePanzoom() {
     if (panzoomInstance) panzoomInstance.dispose();
 
@@ -104,13 +98,17 @@ document.addEventListener("DOMContentLoaded", function () {
   img.onclick = function () {
     modal.style.display = "block";
 
-    // Handle cached images not firing 'onload'
-    if (modalImg.complete) {
-        initializePanzoom();
-    } else {
-        modalImg.onload = initializePanzoom;
-    }
+    // Set the onload event handler *before* setting the src
+    modalImg.onload = initializePanzoom;
+
+    // Set the src to trigger loading
     modalImg.src = this.src;
+
+    // If the image is already in the browser cache, the load event might not fire.
+    // This check ensures the handler is called regardless.
+    if (modalImg.complete) {
+      initializePanzoom();
+    }
   };
 
   function closeModal() {
