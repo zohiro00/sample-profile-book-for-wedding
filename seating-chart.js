@@ -8,17 +8,9 @@ document.addEventListener("DOMContentLoaded", function () {
   let panzoomInstance = null;
 
   // --- Table Coordinates (Relative) ---
-  // Top row: y=0.36, Bottom row: y=0.79
-  // Columns: x = 0.125, 0.375, 0.625, 0.875
   const tableCoordinates = [
-    { x: 0.125, y: 0.36 }, // Table 1
-    { x: 0.375, y: 0.36 }, // Table 2
-    { x: 0.625, y: 0.36 }, // Table 3
-    { x: 0.875, y: 0.36 }, // Table 4
-    { x: 0.125, y: 0.79 }, // Table 5
-    { x: 0.375, y: 0.79 }, // Table 6
-    { x: 0.625, y: 0.79 }, // Table 7
-    { x: 0.875, y: 0.79 }, // Table 8
+    { x: 0.125, y: 0.36 }, { x: 0.375, y: 0.36 }, { x: 0.625, y: 0.36 }, { x: 0.875, y: 0.36 },
+    { x: 0.125, y: 0.79 }, { x: 0.375, y: 0.79 }, { x: 0.625, y: 0.79 }, { x: 0.875, y: 0.79 },
   ];
 
   // --- Function to create jump buttons ---
@@ -35,86 +27,80 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // --- Function to handle jump logic ---
   function handleTableJump(event) {
-    if (!event.target.classList.contains('table-jump-btn')) return;
+    const clickedBtn = event.target.closest('.table-jump-btn');
+    if (!clickedBtn) return;
     if (!panzoomInstance) return;
 
-    const tableIndex = parseInt(event.target.dataset.tableIndex, 10);
-    const coords = tableCoordinates[tableIndex];
-    const targetScale = 2; // Zoom level for tables
+    // --- Active Button UI ---
+    // Remove active class from all buttons
+    const allBtns = controlsContainer.querySelectorAll('.table-jump-btn');
+    allBtns.forEach(btn => btn.classList.remove('active'));
+    // Add active class to the clicked one
+    clickedBtn.classList.add('active');
 
-    // We need the image's original dimensions to calculate absolute coordinates
+    // --- Pan & Zoom Logic ---
+    const tableIndex = parseInt(clickedBtn.dataset.tableIndex, 10);
+    const coords = tableCoordinates[tableIndex];
+    const targetScale = 2.5; // Increased zoom for better feedback
+
     const imageWidth = modalImg.naturalWidth;
     const imageHeight = modalImg.naturalHeight;
 
     if (!imageWidth || !imageHeight) {
-        console.error("Image dimensions not available.");
-        return;
+      console.error("Image dimensions not available.");
+      return;
     }
 
     const absX = coords.x * imageWidth;
     const absY = coords.y * imageHeight;
 
-    // Get the viewport dimensions
     const viewportWidth = modal.clientWidth;
     const viewportHeight = modal.clientHeight;
 
-    // Calculate the required top-left position to center the target point
     const newX = (viewportWidth / 2) - (absX * targetScale);
     const newY = (viewportHeight / 2) - (absY * targetScale);
 
-    // First, zoom to the target scale
-    panzoomInstance.zoomAbs(0, 0, targetScale); // Zoom without moving
-    // Then, smoothly move to the calculated position
+    panzoomInstance.smoothZoom(viewportWidth / 2, viewportHeight / 2, targetScale);
     panzoomInstance.smoothMoveTo(newX, newY);
   }
 
-
   // --- Event Listeners ---
-
-  // Open modal when the main image is clicked
   img.onclick = function () {
     modal.style.display = "block";
-
-    // Set src for modal image. Use a temporary blank image to avoid issues if the real src isn't loaded yet.
-    modalImg.src = "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=";
     modalImg.src = this.src;
 
-    // Wait for the image to load to get its dimensions
     modalImg.onload = () => {
-        // Initialize panzoom only after the image is loaded
-        if (panzoomInstance) {
-          panzoomInstance.dispose();
-        }
-        panzoomInstance = panzoom(modalImg, {
-          maxZoom: 4,
-          minZoom: 0.5,
-          autocenter: true,
-          bounds: true,
-          boundsPadding: 0.1,
-        });
+      if (panzoomInstance) panzoomInstance.dispose();
+      panzoomInstance = panzoom(modalImg, {
+        maxZoom: 5, // Increased max zoom
+        minZoom: 0.5,
+        autocenter: true,
+        bounds: true,
+        boundsPadding: 0.05,
+      });
     };
   };
 
-  // Close modal
   function closeModal() {
     modal.style.display = "none";
     if (panzoomInstance) {
       panzoomInstance.dispose();
       panzoomInstance = null;
     }
+    // Remove active class from all buttons when closing
+    const allBtns = controlsContainer.querySelectorAll('.table-jump-btn');
+    allBtns.forEach(btn => btn.classList.remove('active'));
   }
 
   closeBtn.onclick = closeModal;
 
-  // Close modal if clicking outside the image
   modal.addEventListener('click', function(event) {
     if (event.target === modal) {
       closeModal();
     }
   });
 
-
-  // --- Initialize buttons and add listener to the container ---
+  // --- Initialization ---
   createJumpButtons();
   controlsContainer.addEventListener('click', handleTableJump);
 });
