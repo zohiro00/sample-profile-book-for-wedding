@@ -4,140 +4,86 @@ document.addEventListener("DOMContentLoaded", function () {
   const modalImg = document.getElementById("modal-seating-chart-image");
   const closeBtn = document.querySelector(".seating-chart-close-btn");
   const controlsContainer = document.getElementById("table-jump-controls");
-  const pin = document.getElementById("seating-chart-pin");
+  const descriptionDisplay = document.getElementById("table-description-display");
 
-  let panzoomInstance = null;
-  let targetPinCoords = null; // Store {x, y} of the target table in image pixels
+  let tableData = {};
 
-  const tableCoordinates = [
-    { x: 0.125, y: 0.36 }, { x: 0.375, y: 0.36 }, { x: 0.625, y: 0.36 }, { x: 0.875, y: 0.36 },
-    { x: 0.125, y: 0.79 }, { x: 0.375, y: 0.79 }, { x: 0.625, y: 0.79 }, { x: 0.875, y: 0.79 },
-  ];
-
-  function setButtonsDisabled(disabled) {
-    controlsContainer.querySelectorAll('.table-jump-btn').forEach(btn => {
-        btn.disabled = disabled;
+  // Fetch table descriptions from content.json
+  fetch("content.json")
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then(data => {
+      if (data && data.table_descriptions) {
+        tableData = data.table_descriptions;
+      }
+    })
+    .catch(error => {
+      console.error("Failed to fetch table descriptions:", error);
+      // You could hide the controls if data loading fails
+      controlsContainer.style.display = 'none';
     });
-  }
 
+  // Create the table buttons
   function createJumpButtons() {
     controlsContainer.innerHTML = '';
-    for (let i = 0; i < tableCoordinates.length; i++) {
+    for (let i = 1; i <= 8; i++) {
       const btn = document.createElement('button');
-      btn.innerText = `Table ${i + 1}`;
+      btn.innerText = `Table ${i}`;
       btn.className = 'table-jump-btn';
-      btn.dataset.tableIndex = i;
+      btn.dataset.tableKey = `table_${i}`;
       controlsContainer.appendChild(btn);
     }
   }
 
-  function updatePinPosition() {
-    if (!panzoomInstance || !targetPinCoords) {
-      pin.style.display = 'none';
-      return;
-    }
-    const transform = panzoomInstance.getTransform();
-    pin.style.left = `${transform.x + targetPinCoords.x * transform.scale}px`;
-    pin.style.top = `${transform.y + targetPinCoords.y * transform.scale}px`;
-    pin.style.transform = `rotate(-45deg) scale(${transform.scale})`;
-    pin.style.transformOrigin = `50% 100%`;
-  }
-
-  function handleTableJump(event) {
+  // Handle button clicks to show descriptions
+  function handleTableButtonClick(event) {
     const clickedBtn = event.target.closest('.table-jump-btn');
-    if (!clickedBtn || !panzoomInstance) return;
+    if (!clickedBtn) return;
 
+    // Manage active state for buttons
     controlsContainer.querySelectorAll('.table-jump-btn').forEach(btn => btn.classList.remove('active'));
     clickedBtn.classList.add('active');
 
-    const tableIndex = parseInt(clickedBtn.dataset.tableIndex, 10);
-    const coords = tableCoordinates[tableIndex];
-    const targetScale = 2.5;
+    // Get and display the description
+    const tableKey = clickedBtn.dataset.tableKey;
+    const description = tableData[tableKey] || "こちらのテーブルの紹介文は準備中です。";
 
-    const imageWidth = modalImg.naturalWidth;
-    const imageHeight = modalImg.naturalHeight;
+    descriptionDisplay.innerHTML = description;
+    descriptionDisplay.style.display = 'block';
 
-    if (!imageWidth || !imageHeight) return;
-
-    targetPinCoords = {
-      x: coords.x * imageWidth,
-      y: coords.y * imageHeight
-    };
-
-    pin.style.display = 'block';
-    pin.style.animation = 'none';
-    pin.offsetHeight; // Trigger reflow
-    pin.style.animation = null;
-
-    const viewportWidth = modal.clientWidth;
-    const viewportHeight = modal.clientHeight;
-    const newX = (viewportWidth / 2) - (targetPinCoords.x * targetScale);
-    const newY = (viewportHeight / 2) - (targetPinCoords.y * targetScale);
-
-    panzoomInstance.smoothZoom(viewportWidth / 2, viewportHeight / 2, targetScale);
-    panzoomInstance.smoothMoveTo(newX, newY);
+    // Restart animation
+    descriptionDisplay.style.animation = 'none';
+    descriptionDisplay.offsetHeight; // Trigger reflow
+    descriptionDisplay.style.animation = null;
   }
 
-  function initializePanzoom() {
-    // This function can be called multiple times, so we clean up first.
-    if (panzoomInstance) {
-        panzoomInstance.dispose();
-    }
-
-    panzoomInstance = panzoom(modalImg, {
-      maxZoom: 5,
-      minZoom: 0.5,
-      autocenter: true,
-      bounds: true,
-      boundsPadding: 0.05,
-    });
-
-    panzoomInstance.on('transform', updatePinPosition);
-
-    // Enable buttons now that panzoom is ready
-    setButtonsDisabled(false);
-  }
-
+  // Open the modal
   img.onclick = function () {
     modal.style.display = "block";
-    setButtonsDisabled(true); // Disable buttons until panzoom is ready
-
-    // Define onload handler
-    const onImgLoad = () => {
-        // Ensure this doesn't run again if called manually
-        modalImg.onload = null;
-        initializePanzoom();
-    };
-    modalImg.onload = onImgLoad;
-
-    // Set src to trigger loading
     modalImg.src = this.src;
-
-    // If image is cached, onload might not fire.
-    if (modalImg.complete) {
-      onImgLoad();
-    }
+    // Hide description and reset buttons on open
+    descriptionDisplay.style.display = 'none';
+    controlsContainer.querySelectorAll('.table-jump-btn').forEach(btn => btn.classList.remove('active'));
   };
 
+  // Close the modal
   function closeModal() {
     modal.style.display = "none";
-    targetPinCoords = null;
-    if (pin) pin.style.display = 'none';
-
-    if (panzoomInstance) {
-      panzoomInstance.dispose();
-      panzoomInstance = null;
-    }
-    controlsContainer.querySelectorAll('.table-jump-btn').forEach(btn => btn.classList.remove('active'));
-    setButtonsDisabled(true); // Reset for next open
   }
 
   closeBtn.onclick = closeModal;
   modal.addEventListener('click', function(event) {
-    if (event.target === modal) closeModal();
+    // Close if clicking on the modal background, but not on the image or controls
+    if (event.target === modal) {
+      closeModal();
+    }
   });
 
+  // Initial setup
   createJumpButtons();
-  setButtonsDisabled(true); // Initially disabled
-  controlsContainer.addEventListener('click', handleTableJump);
+  controlsContainer.addEventListener('click', handleTableButtonClick);
 });
