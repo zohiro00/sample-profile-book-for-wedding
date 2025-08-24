@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const modalCloseBtn = document.querySelector(".seating-chart-close-btn");
   const controlsContainer = document.getElementById("table-jump-controls");
   const descriptionDisplay = document.getElementById("table-description-display");
+  const descriptionTitle = document.getElementById("description-title");
   const descriptionText = document.getElementById("description-text-content");
   const descriptionCloseBtn = document.querySelector(".description-close-btn");
 
@@ -46,6 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const tableKey = clickedBtn.dataset.tableKey;
     const description = tableData[tableKey] || "こちらのテーブルの紹介文は準備中です。";
 
+    descriptionTitle.innerText = clickedBtn.innerText;
     descriptionText.innerHTML = description;
     descriptionDisplay.style.display = 'block';
 
@@ -60,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   img.onclick = function () {
-    modal.style.display = "block";
+    modal.style.display = "flex"; // Use flex to enable centering and click-outside
     modalImg.src = this.src;
     hideDescription();
   };
