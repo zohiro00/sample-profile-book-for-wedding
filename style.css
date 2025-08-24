@@ -584,9 +584,11 @@ body {
 
 /* Seating Chart Modal */
 .seating-chart-modal {
-  display: none;
+  display: none; /* Changed to 'flex' by JS */
   position: fixed;
   z-index: 1000;
+  align-items: center;
+  justify-content: center;
   left: 0;
   top: 0;
   width: 100%;
@@ -716,6 +718,15 @@ body {
 
 .description-close-btn:hover {
   color: white;
+}
+
+#description-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  color: var(--secondary-color);
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--secondary-color);
 }
 
 
