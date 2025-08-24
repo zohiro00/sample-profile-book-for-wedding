@@ -2,18 +2,17 @@ document.addEventListener("DOMContentLoaded", function () {
   const modal = document.getElementById("seating-chart-modal");
   const img = document.getElementById("seating-chart-image");
   const modalImg = document.getElementById("modal-seating-chart-image");
-  const closeBtn = document.querySelector(".seating-chart-close-btn");
+  const modalCloseBtn = document.querySelector(".seating-chart-close-btn");
   const controlsContainer = document.getElementById("table-jump-controls");
   const descriptionDisplay = document.getElementById("table-description-display");
+  const descriptionText = document.getElementById("description-text-content");
+  const descriptionCloseBtn = document.querySelector(".description-close-btn");
 
   let tableData = {};
 
-  // Fetch table descriptions from content.json
   fetch("content.json")
     .then(response => {
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
+      if (!response.ok) throw new Error("Network response was not ok");
       return response.json();
     })
     .then(data => {
@@ -23,11 +22,9 @@ document.addEventListener("DOMContentLoaded", function () {
     })
     .catch(error => {
       console.error("Failed to fetch table descriptions:", error);
-      // You could hide the controls if data loading fails
       controlsContainer.style.display = 'none';
     });
 
-  // Create the table buttons
   function createJumpButtons() {
     controlsContainer.innerHTML = '';
     for (let i = 1; i <= 8; i++) {
@@ -39,51 +36,53 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Handle button clicks to show descriptions
   function handleTableButtonClick(event) {
     const clickedBtn = event.target.closest('.table-jump-btn');
     if (!clickedBtn) return;
 
-    // Manage active state for buttons
     controlsContainer.querySelectorAll('.table-jump-btn').forEach(btn => btn.classList.remove('active'));
     clickedBtn.classList.add('active');
 
-    // Get and display the description
     const tableKey = clickedBtn.dataset.tableKey;
     const description = tableData[tableKey] || "こちらのテーブルの紹介文は準備中です。";
 
-    descriptionDisplay.innerHTML = description;
+    descriptionText.innerHTML = description;
     descriptionDisplay.style.display = 'block';
 
-    // Restart animation
     descriptionDisplay.style.animation = 'none';
-    descriptionDisplay.offsetHeight; // Trigger reflow
+    descriptionDisplay.offsetHeight;
     descriptionDisplay.style.animation = null;
   }
 
-  // Open the modal
+  function hideDescription() {
+    descriptionDisplay.style.display = 'none';
+    controlsContainer.querySelectorAll('.table-jump-btn').forEach(btn => btn.classList.remove('active'));
+  }
+
   img.onclick = function () {
     modal.style.display = "block";
     modalImg.src = this.src;
-    // Hide description and reset buttons on open
-    descriptionDisplay.style.display = 'none';
-    controlsContainer.querySelectorAll('.table-jump-btn').forEach(btn => btn.classList.remove('active'));
+    hideDescription();
   };
 
-  // Close the modal
   function closeModal() {
     modal.style.display = "none";
   }
 
-  closeBtn.onclick = closeModal;
+  modalCloseBtn.onclick = closeModal;
+
   modal.addEventListener('click', function(event) {
-    // Close if clicking on the modal background, but not on the image or controls
     if (event.target === modal) {
       closeModal();
     }
   });
 
-  // Initial setup
-  createJumpButtons();
+  descriptionCloseBtn.onclick = function(event) {
+      event.stopPropagation();
+      hideDescription();
+  };
+
   controlsContainer.addEventListener('click', handleTableButtonClick);
+
+  createJumpButtons();
 });

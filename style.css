@@ -686,13 +686,14 @@ body {
 .table-description-display {
   display: none; /* Hidden by default */
   position: absolute;
-  top: 20px;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%); /* Center the element */
   width: 80%;
   max-width: 400px;
-  padding: 15px;
-  background-color: rgba(0, 0, 0, 0.7);
+  padding: 20px;
+  padding-top: 30px; /* More space for the close button */
+  background-color: rgba(0, 0, 0, 0.8);
   color: white;
   border-radius: 8px;
   text-align: center;
@@ -703,14 +704,29 @@ body {
   animation: desc-fade-in 0.4s ease;
 }
 
+.description-close-btn {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  font-size: 24px;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.description-close-btn:hover {
+  color: white;
+}
+
+
 @keyframes desc-fade-in {
   from {
     opacity: 0;
-    transform: translate(-50%, -10px);
+    transform: translate(-50%, -60%); /* Adjust for new centered position */
   }
   to {
     opacity: 1;
-    transform: translate(-50%, 0);
+    transform: translate(-50%, -50%);
   }
 }
 
