@@ -3,7 +3,8 @@
 const siteDesigns = [
   { id: 'site1', name: 'サンプル1', className: 'design-default' },
   { id: 'site2', name: 'サンプル2', className: 'design-stylish-mono' },
-  { id: 'site3', name: 'サンプル3', className: 'design-elegant' }
+  { id: 'site3', name: 'サンプル3', className: 'design-elegant' },
+  { id: 'site4', name: 'サンプル4', url: 'animation/animation.html' }
 ];
 
 class WeddingDialog {
@@ -148,9 +149,18 @@ class WeddingDialog {
     // サイト選択
     document.querySelectorAll('.site-option').forEach(option => {
       option.addEventListener('click', (e) => {
-        document.querySelectorAll('.site-option').forEach(opt => opt.classList.remove('selected'));
-        e.target.classList.add('selected');
-        this.selectedSite = e.target.dataset.site;
+        const siteId = e.target.dataset.site;
+        const selectedDesign = this.siteDesigns.find(d => d.id === siteId);
+
+        if (selectedDesign && selectedDesign.url) {
+          // URLが指定されている場合は、そのページに遷移
+          window.location.href = selectedDesign.url;
+        } else {
+          // それ以外の場合は、通常通りデザインを切り替える
+          document.querySelectorAll('.site-option').forEach(opt => opt.classList.remove('selected'));
+          e.target.classList.add('selected');
+          this.selectedSite = siteId;
+        }
       });
     });
 
