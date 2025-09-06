@@ -54,6 +54,7 @@ h2 {
     font-size: 8em;
     font-weight: bold;
     text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+    white-space: nowrap; /* スマホでの改行を防止 */
 }
 
 .wedding-logo img {
