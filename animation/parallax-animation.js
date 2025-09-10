@@ -1,36 +1,53 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- セクション1: 新しいイントロダクションのアニメーション ---
+    // --- セクション1: V2 イントロダクションのアニメーション ---
     const introTimeline = anime.timeline({
-        easing: 'easeOutExpo',
+        easing: 'easeInOutExpo',
     });
 
     introTimeline
         .add({
-            targets: '.intro-building',
+            targets: '.intro-profile-photo',
             opacity: [0, 1],
-            translateY: [40, 0],
+            scale: [0.8, 1],
             duration: 1500,
         })
         .add({
-            targets: '.intro-title',
-            opacity: [0, 1],
-            duration: 500,
+            targets: '.intro-profile-photo',
+            opacity: 0,
+            duration: 1000,
+            delay: 1000, // しばらく表示
         })
+        .add({
+            targets: '.transition-wipe',
+            scaleY: [0, 1],
+            transformOrigin: 'bottom',
+            duration: 800,
+            complete: () => {
+                // ワイプが完了したら、要素の状態を切り替える
+                document.querySelector('.intro-profile-photo').style.display = 'none';
+                document.querySelector('.intro-part-2').style.opacity = 1;
+            }
+        }, '-=500') // プロフィール写真のフェードアウトと同時に開始
+        .add({
+            targets: '.transition-wipe',
+            scaleY: [1, 0],
+            transformOrigin: 'top',
+            duration: 800,
+        })
+        .add({
+            targets: '.intro-building',
+            opacity: [0, 1],
+            translateY: [20, 0],
+            duration: 1200,
+        }, '-=500') // ワイプアウトと同時に建物を表示
         .add({
             targets: '.intro-title .word',
             opacity: [0, 1],
-            translateY: [20, 0],
-            duration: 800,
-            delay: anime.stagger(100),
-        }, '-=300') // 前のアニメーションと少しオーバーラップさせる
-        .add({
-            targets: '.intro-profile-photo',
-            opacity: [0, 1],
-            scale: [0.5, 1],
-            easing: 'spring(1, 80, 10, 0)',
+            translateY: [10, 0],
             duration: 1000,
-        }, '-=400'); // 前のアニメーションと少しオーバーラップさせる
+            delay: anime.stagger(150),
+        }, '-=800');
 
 
     // --- Intersection Observer の設定 ---
