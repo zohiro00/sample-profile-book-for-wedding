@@ -1,41 +1,36 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- セクション1: イントロダクションのアニメーション ---
+    // --- セクション1: 新しいイントロダクションのアニメーション ---
     const introTimeline = anime.timeline({
         easing: 'easeOutExpo',
     });
 
     introTimeline
         .add({
-            targets: '.initials',
+            targets: '.intro-building',
             opacity: [0, 1],
-            scale: [0.5, 1],
-            duration: 1200,
+            translateY: [40, 0],
+            duration: 1500,
         })
         .add({
-            targets: '.initials',
-            opacity: 0,
-            duration: 800,
-            delay: 500,
-        })
-        .add({
-            targets: '.wedding-logo',
+            targets: '.intro-title',
             opacity: [0, 1],
-            scale: [0.2, 1],
-            duration: 1000,
-        }, '-=800') //前のアニメーションの途中から開始
-        .add({
-            targets: '.wedding-logo',
-            opacity: 0,
-            duration: 800,
-            delay: 800,
+            duration: 500,
         })
         .add({
-            targets: '.wedding-title',
+            targets: '.intro-title .word',
             opacity: [0, 1],
             translateY: [20, 0],
-            duration: 1200,
-        }, '-=800');
+            duration: 800,
+            delay: anime.stagger(100),
+        }, '-=300') // 前のアニメーションと少しオーバーラップさせる
+        .add({
+            targets: '.intro-profile-photo',
+            opacity: [0, 1],
+            scale: [0.5, 1],
+            easing: 'spring(1, 80, 10, 0)',
+            duration: 1000,
+        }, '-=400'); // 前のアニメーションと少しオーバーラップさせる
 
 
     // --- Intersection Observer の設定 ---
