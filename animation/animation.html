@@ -11,11 +11,19 @@
     <!-- セクション1: イントロダクション -->
     <section id="intro" class="section">
         <div class="intro-animation-container">
-            <img src="../images/isometric.jpg" alt="Building" class="intro-building">
-            <h1 class="intro-title">
-                <span class="word">Wedding</span><br><span class="word">Profile</span>
-            </h1>
+            <!-- Initially visible -->
             <img src="../images/profile_image_07_02.png" alt="Couple Photo" class="intro-profile-photo">
+
+            <!-- Hidden initially, for the second part of the animation -->
+            <div class="intro-part-2">
+                <img src="../images/isometric.jpg" alt="Building" class="intro-building">
+                <h1 class="intro-title">
+                    <span class="word">Wedding</span><br><span class="word">Profile</span>
+                </h1>
+            </div>
+
+            <!-- The white screen for transition -->
+            <div class="transition-wipe"></div>
         </div>
     </section>
 
