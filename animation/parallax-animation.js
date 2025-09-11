@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- セクション1: イントロダクションのアニメーション ---
+    // --- セクション1: V2 イントロダクションのアニメーション ---
     const introTimeline = anime.timeline({
-        easing: 'easeOutExpo',
+        easing: 'easeInOutExpo',
     });
 
     introTimeline
@@ -14,29 +14,35 @@ document.addEventListener('DOMContentLoaded', () => {
         }, '-=800')
         .add({
             targets: '.initials',
+
             opacity: [0, 1],
-            scale: [0.5, 1],
-            duration: 1200,
+            scale: [0.8, 1],
+            duration: 1500,
         })
         .add({
-            targets: '.initials',
+            targets: '.intro-profile-photo',
             opacity: 0,
-            duration: 800,
-            delay: 500,
-        })
-        .add({
-            targets: '.wedding-logo',
-            opacity: [0, 1],
-            scale: [0.2, 1],
             duration: 1000,
-        }, '-=800') //前のアニメーションの途中から開始
+            delay: 1000, // しばらく表示
+        })
         .add({
-            targets: '.wedding-logo',
-            opacity: 0,
+            targets: '.transition-wipe',
+            scaleY: [0, 1],
+            transformOrigin: 'bottom',
+            duration: 800,
+            complete: () => {
+                // ワイプが完了したら、要素の状態を切り替える
+                document.querySelector('.intro-profile-photo').style.display = 'none';
+                document.querySelector('.intro-part-2').style.opacity = 1;
+            }
+        }, '-=500') // プロフィール写真のフェードアウトと同時に開始
+        .add({
+            targets: '.transition-wipe',
+            scaleY: [1, 0],
+            transformOrigin: 'top',
             duration: 800,
             delay: 800,
         });
-
 
     // --- Intersection Observer の設定 ---
     const observerOptions = {
