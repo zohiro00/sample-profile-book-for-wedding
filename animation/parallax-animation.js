@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
             opacity: [0, 1],
             translateY: [20, 0],
             duration: 1200,
-        }, '-=800')
+        })
         .add({
             targets: '.initials',
             opacity: [0, 1],
