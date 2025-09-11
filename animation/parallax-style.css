@@ -68,11 +68,9 @@ h2 {
     transform: translateY(20px); /* JSでアニメーション */
 }
 
-/* セクション2: イントロダクション */
+/* セクション2: アイソメトリック */
 #isometric {
-    background-image: url('../images/isometric.jpg');
-    background-attachment: fixed;
-    color: #000;
+    background-color: #1a1a1e;
 }
 
 .isometric-content {
@@ -80,10 +78,18 @@ h2 {
 }
 
 .isometric-title {
-    font-size: 3em;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 4em;
     font-weight: bold;
     white-space: nowrap; /* スマホでの改行を防止 */
-    color: #3f3f3f;
+    color: #CCCCCC;
+}
+
+/* アニメーション用の文字スパン */
+.isometric-title .letter {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(20px);
 }
 
 

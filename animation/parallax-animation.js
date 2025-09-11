@@ -1,5 +1,49 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    // --- content.json からデータを読み込む ---
+    fetch('../content.json')
+        .then(response => response.json())
+        .then(data => {
+            const venueName = data.text['venue-name'];
+            const titleElement = document.querySelector('.isometric-title');
+            if (titleElement && venueName) {
+                // 各文字をspanで囲む（空白はそのまま）
+                titleElement.innerHTML = venueName.split('').map(char =>
+                    char === ' ' ? ' ' : `<span class="letter">${char}</span>`
+                ).join('');
+
+                // アニメーションの監視を開始
+                observeTitleAnimation();
+            }
+        });
+
+    // --- タイトルアニメーションの監視 ---
+    const observeTitleAnimation = () => {
+        const titleObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    anime.timeline({
+                        easing: 'easeOutExpo',
+                    })
+                    .add({
+                        targets: '.isometric-title .letter',
+                        opacity: [0, 1],
+                        translateY: [20, 0],
+                        duration: 800,
+                        delay: anime.stagger(50) // 50msごとに次の文字をアニメーション
+                    });
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 }); // 50%見えたらトリガー
+
+        const target = document.querySelector('.isometric-title');
+        if (target) {
+            titleObserver.observe(target);
+        }
+    };
+
+
     // --- セクション1: イントロダクションのアニメーション ---
     const introTimeline = anime.timeline({
         easing: 'easeOutExpo',
