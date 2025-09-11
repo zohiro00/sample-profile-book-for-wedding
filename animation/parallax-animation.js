@@ -7,7 +7,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     introTimeline
         .add({
-            targets: '.intro-profile-photo',
+            targets: '.wedding-title',
+            opacity: [0, 1],
+            translateY: [20, 0],
+            duration: 1200,
+        }, '-=800')
+        .add({
+            targets: '.initials',
+
             opacity: [0, 1],
             scale: [0.8, 1],
             duration: 1500,
@@ -34,21 +41,8 @@ document.addEventListener('DOMContentLoaded', () => {
             scaleY: [1, 0],
             transformOrigin: 'top',
             duration: 800,
-        })
-        .add({
-            targets: '.intro-building',
-            opacity: [0, 1],
-            translateY: [20, 0],
-            duration: 1200,
-        }, '-=500') // ワイプアウトと同時に建物を表示
-        .add({
-            targets: '.intro-title .word',
-            opacity: [0, 1],
-            translateY: [10, 0],
-            duration: 1000,
-            delay: anime.stagger(150),
-        }, '-=800');
-
+            delay: 800,
+        });
 
     // --- Intersection Observer の設定 ---
     const observerOptions = {

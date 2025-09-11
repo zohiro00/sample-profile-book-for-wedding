@@ -78,44 +78,32 @@ h2 {
     transform: translateY(20px);
 }
 
-.intro-profile-photo {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid #fff;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-    opacity: 0; /* JSでアニメーション */
-    transform: scale(0.5); /* JSでアニメーション */
+.wedding-title {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 4em;
+    transform: translateY(20px); /* JSでアニメーション */
 }
 
-.intro-part-2 {
-    opacity: 0; /* Initially hidden */
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+/* セクション2: イントロダクション */
+#isometric {
+    background-image: url('../images/isometric.jpg');
+    background-attachment: fixed;
+    color: #000;
 }
 
-.transition-wipe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #ffffff;
-    transform: scaleY(0);
-    transform-origin: bottom;
-    z-index: 100;
+.isometric-content {
+    text-align: center;
+}
+
+.isometric-title {
+    font-size: 3em;
+    font-weight: bold;
+    white-space: nowrap; /* スマホでの改行を防止 */
+    color: #3f3f3f;
 }
 
 
-/* セクション2: Our Story */
+/* セクション3: Our Story */
 #story {
     background-image: url('../images/profile_image_13_01.jpg');
     background-attachment: fixed;
@@ -158,7 +146,7 @@ h2 {
     margin-top: 15px;
 }
 
-/* セクション3: Gallery */
+/* セクション4: Gallery */
 #gallery {
     background-color: #111; /* 背景色を調整 */
     overflow: hidden; /* アニメーションで要素がはみ出ないように */
