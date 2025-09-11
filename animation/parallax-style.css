@@ -70,7 +70,8 @@ h2 {
 
 /* セクション2: アイソメトリック */
 #isometric {
-    background-color: #1a1a1e;
+    background-image: url('../images/isometric.jpg');
+    background-attachment: fixed;
 }
 
 .isometric-content {
@@ -82,7 +83,8 @@ h2 {
     font-size: 4em;
     font-weight: bold;
     white-space: nowrap; /* スマホでの改行を防止 */
-    color: #CCCCCC;
+    color: #3f3f3f;
+    text-shadow: 2px 2px 8px rgba(255, 255, 255, 0.7);
 }
 
 /* アニメーション用の文字スパン */
@@ -159,4 +161,23 @@ h2 {
     box-shadow: 0 4px 15px rgba(0,0,0,0.3);
     opacity: 0; /* JSでアニメーション */
     /* JSでランダムな transform を設定 */
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 480px) {
+    .isometric-title {
+        font-size: 2em; /* スマホではフォントサイズを小さくしてはみ出しを防ぐ */
+    }
+
+    .initials {
+        font-size: 6em;
+    }
+
+    .wedding-title {
+        font-size: 3em;
+    }
+
+    h2 {
+        font-size: 2.5em;
+    }
 }
