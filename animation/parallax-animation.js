@@ -7,6 +7,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     introTimeline
         .add({
+            targets: '.wedding-title',
+            opacity: [0, 1],
+            translateY: [20, 0],
+            duration: 1200,
+        }, '-=800')
+        .add({
             targets: '.initials',
             opacity: [0, 1],
             scale: [0.5, 1],
@@ -29,13 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
             opacity: 0,
             duration: 800,
             delay: 800,
-        })
-        .add({
-            targets: '.wedding-title',
-            opacity: [0, 1],
-            translateY: [20, 0],
-            duration: 1200,
-        }, '-=800');
+        });
 
 
     // --- Intersection Observer の設定 ---

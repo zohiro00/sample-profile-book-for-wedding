@@ -63,6 +63,7 @@ h2 {
 }
 
 .wedding-title {
+    font-family: 'Courier New', Courier, monospace;
     font-size: 4em;
     transform: translateY(20px); /* JSでアニメーション */
 }
