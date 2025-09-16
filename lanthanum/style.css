@@ -1,0 +1,210 @@
+/* --- Base Styles --- */
+:root {
+  --primary-purple: #6A0DAD; /* A rich purple */
+  --light-purple: #E0B0FF;
+  --dark-gray: #333333;
+  --medium-gray: #666666;
+  --light-gray: #f4f4f4;
+  --white: #ffffff;
+  --font-main: 'Noto Serif JP', serif;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-main);
+  background-color: var(--light-gray);
+  color: var(--dark-gray);
+  line-height: 1.7;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: var(--white);
+  box-shadow: 0 0 20px rgba(0,0,0,0.05);
+}
+
+h1, h2, h3 {
+  font-weight: 400;
+  margin-top: 0;
+}
+
+h2.section-title {
+  text-align: center;
+  font-size: 1.8rem;
+  color: var(--primary-purple);
+  margin-bottom: 2.5rem;
+  font-weight: 500;
+}
+
+main {
+  padding: 2rem 1.5rem;
+}
+
+section {
+  padding: 2rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+section:last-of-type {
+    border-bottom: none;
+}
+
+/* --- Header / Main Visual --- */
+.main-visual {
+  position: relative;
+  height: 60vh;
+  color: var(--white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.main-visual-image-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: var(--lanthanum-bg-main);
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.6);
+  z-index: 1;
+}
+
+.main-visual-content {
+  position: relative;
+  z-index: 2;
+  padding: 20px;
+  background: rgba(0,0,0,0.2);
+  border-radius: 8px;
+}
+
+.main-visual .names {
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  margin: 0;
+  font-weight: 500;
+  letter-spacing: 2px;
+}
+
+.main-visual .date {
+  font-size: 1.2rem;
+  margin-top: 0.5rem;
+}
+
+/* --- Greeting Section --- */
+.greeting-text {
+  text-align: center;
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* --- Divider Image --- */
+.divider-image {
+    height: 150px;
+    background-image: var(--lanthanum-bg-sub);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Parallax effect */
+}
+
+/* --- Info Section --- */
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.info-label {
+  font-weight: 500;
+  color: var(--primary-purple);
+  margin-bottom: 0.25rem;
+  font-size: 1.1rem;
+}
+
+.info-value {
+  font-size: 1rem;
+}
+
+/* --- Profile Section --- */
+.profile-cards {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.profile-card {
+  width: 300px;
+  text-align: center;
+  padding: 1.5rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fdfdff;
+}
+
+.profile-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+  border: 4px solid var(--light-purple);
+}
+
+.profile-name {
+  font-size: 1.5rem;
+  color: var(--primary-purple);
+  margin-bottom: 0.5rem;
+}
+
+.profile-message {
+  font-size: 0.95rem;
+  color: var(--medium-gray);
+}
+
+/* --- Map Section --- */
+.map-container {
+    overflow: hidden;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+
+/* --- Footer --- */
+footer {
+  text-align: center;
+  padding: 2rem;
+  background-color: var(--primary-purple);
+  color: var(--white);
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 768px) {
+  main {
+    padding: 1.5rem 1rem;
+  }
+
+  .profile-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profile-card {
+      width: 90%;
+      max-width: 350px;
+  }
+}
