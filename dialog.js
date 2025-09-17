@@ -4,7 +4,8 @@ const siteDesigns = [
   { id: 'site1', name: 'サンプル1', className: 'design-default' },
   { id: 'site2', name: 'サンプル2', className: 'design-stylish-mono' },
   { id: 'site3', name: 'サンプル3', className: 'design-elegant' },
-  { id: 'site4', name: 'サンプル4', url: 'animation/animation.html' }
+  { id: 'site4', name: 'サンプル4', url: 'animation/animation.html' },
+  { id: 'site5', name: 'サイト5', url: 'lanthanum/' }
 ];
 
 class WeddingDialog {
