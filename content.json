@@ -60,15 +60,7 @@
     "seating-chart-title": "SEATING CHART",
     "photo-gallery-title": "PHOTO GALLERY",
     "venue-name": "Westin Hotel Tokyo",
-    "footer-text": "Thank you for celebrating with us!",
-    "info-title": "INFORMATION",
-    "info-datetime": "2025年12月11日（木）<br>受付 10:00 / 挙式 10:30 / 披露宴 11:30",
-    "info-venue-name": "PIARY迎賓館",
-    "info-address": "東京都港区青山 3-5-15",
-    "lanthanum-profile1-name": "Daisuke",
-    "lanthanum-profile2-name": "Rinka",
-    "lanthanum-profile1-message": "このたび凛花さんと結婚する運びとなりました。多くのご縁に恵まれ 本日を迎えることができました。今後とも私たちを温かく見守っていただけますと幸いです。",
-    "lanthanum-profile2-message": "大輔さんと出会い、多くの方に励まされ今日を迎えました。感謝の心を忘れず、これからの人生を歩んでまいります。今後とも末永くよろしくお願いいたします。"
+    "footer-text": "Thank you for celebrating with us!"
   },
   "path": {
     "ribbon-image": "images/ribbon2.png",
@@ -88,9 +80,7 @@
     "gallery-image6": "images/profile_image_04_01.jpg",
     "footer-decoration-image": "images/profile1.jpeg",
     "lanthanum-bg-main": "images/lanthanums.jpg",
-    "lanthanum-bg-sub": "images/lanthanums_wide.png",
-    "lanthanum-profile1-image": "images/profile_image_03_01.jpg",
-    "lanthanum-profile2-image": "images/profile_image_04_01.jpg"
+    "lanthanum-bg-sub": "images/lanthanums_wide.png"
   },
   "table_descriptions": {
     "table_1": "🎓 新郎の大学時代の友人一同です。くだらない話で笑い合った日々が懐かしい！今日は楽しんでいってね！ 🎉",

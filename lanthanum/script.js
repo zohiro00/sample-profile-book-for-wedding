@@ -34,8 +34,8 @@ document.addEventListener("DOMContentLoaded", function () {
         document.title = data.text.title;
       }
 
-      // 4. フェードインアニメーションの設定
-      setupFadeInAnimation();
+      // 4. アニメーションの初期化
+      initializeAnimations();
 
     })
     .catch(error => {
@@ -46,23 +46,53 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-  // フェードインアニメーションの関数
-  function setupFadeInAnimation() {
-    const fadeInElements = document.querySelectorAll('.fade-in');
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.1
-    };
-    const observer = new IntersectionObserver((entries, observerInstance) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
+  // アニメーション関連の関数
+  function initializeAnimations() {
+
+    // 1. 雲オーバーレイのアニメーション
+    const cloudOverlay = document.getElementById('cloud-overlay');
+    if (cloudOverlay) {
+      anime({
+        targets: cloudOverlay,
+        opacity: [1, 0],
+        duration: 2000,
+        easing: 'easeInOutQuad',
+        complete: () => {
+          cloudOverlay.style.pointerEvents = 'none';
         }
       });
-    }, observerOptions);
-    fadeInElements.forEach(el => {
-      observer.observe(el);
+    }
+
+    // 2. メインタイトルのアニメーション
+    const namesElement = document.querySelector('.main-visual .names');
+    if (namesElement) {
+        // テキストを文字ごとにspanで囲む
+        namesElement.innerHTML = namesElement.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+
+        anime.timeline({loop: false})
+          .add({
+            targets: '.main-visual .names .letter',
+            translateY: [-100,0],
+            opacity: [0,1],
+            easing: "easeOutExpo",
+            duration: 1400,
+            delay: (el, i) => 30 * i + 1500 // 1.5秒後から開始
+          });
+    }
+
+    // 3. スクロールに応じた表示アニメーション
+    const revealElements = document.querySelectorAll('.reveal-on-scroll');
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    revealElements.forEach(el => {
+      revealObserver.observe(el);
     });
   }
 });
