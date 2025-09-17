@@ -8,7 +8,7 @@
   background: radial-gradient(circle at 25% 25%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.8) 20%, rgba(255,255,255,0) 40%),
               radial-gradient(circle at 75% 65%, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 25%, rgba(255,255,255,0) 50%),
               radial-gradient(circle at 50% 90%, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.6) 20%, rgba(255,255,255,0) 45%),
-              #E0B0FF; /* Fallback background */
+              #E6E6FA; /* Fallback background */
   z-index: 1000;
   pointer-events: none; /* Allow clicks to pass through */
 }
@@ -27,8 +27,8 @@
 
 /* --- Base Styles --- */
 :root {
-  --primary-purple: #6A0DAD; /* A rich purple */
-  --light-purple: #E0B0FF;
+  --primary-lavender: #967BB6; /* Pastel Indigo */
+  --light-lavender: #E6E6FA;   /* Lavender */
   --dark-gray: #333333;
   --medium-gray: #666666;
   --light-gray: #f4f4f4;
@@ -60,7 +60,7 @@ h1, h2, h3 {
 h2.section-title {
   text-align: center;
   font-size: 1.8rem;
-  color: var(--primary-purple);
+  color: var(--primary-lavender);
   margin-bottom: 2.5rem;
   font-weight: 500;
 }
@@ -149,37 +149,37 @@ section:last-of-type {
 }
 
 .profile-card {
-  display: flex;
-  gap: 1.5rem;
+  display: block;
   background-color: #fdfdff;
   border-radius: 12px;
-  padding: 1.5rem;
+  padding: 2rem 1.5rem;
   border: 1px solid #eee;
   box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-  align-items: flex-start;
+  text-align: center;
 }
 
 .profile-image-container {
-  flex-shrink: 0;
+  margin: 0 auto 1.5rem auto;
 }
 
 .profile-image {
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   object-fit: cover;
-  border: 4px solid var(--light-purple);
+  border: 4px solid var(--light-lavender);
 }
 
 .profile-content {
-  flex-grow: 1;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 .profile-name {
   font-size: 1.5rem;
-  color: var(--primary-purple);
+  color: var(--primary-lavender);
   margin-bottom: 1rem;
-  border-bottom: 2px solid var(--light-purple);
+  border-bottom: 2px solid var(--light-lavender);
   padding-bottom: 0.5rem;
 }
 
@@ -196,7 +196,7 @@ section:last-of-type {
 
 .detail-label {
     font-size: 0.85rem;
-    color: var(--primary-purple);
+    color: var(--primary-lavender);
     font-weight: 500;
 }
 
@@ -210,12 +210,137 @@ section:last-of-type {
 }
 
 
+/* --- Timeline Section --- */
+.timeline-card {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.timeline {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+    padding-left: 30px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--light-lavender);
+    border-radius: 2px;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 2rem;
+}
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-icon {
+    position: absolute;
+    left: -20px;
+    top: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--primary-lavender);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.timeline-icon img {
+    filter: brightness(0) invert(1); /* Invert icon color to white */
+    width: 24px;
+    height: 24px;
+}
+
+.timeline-content {
+    padding-left: 30px;
+}
+.timeline-content h4 {
+    margin: 0 0 0.5rem 0;
+    color: var(--primary-lavender);
+}
+.timeline-content p {
+    margin: 0;
+}
+
+
+/* --- Seating Chart Section --- */
+.seating-chart-container {
+    padding: 1rem;
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+.seating-chart-image {
+    width: 100%;
+    border-radius: 8px;
+}
+
+
+/* --- Photo Gallery Section --- */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.gallery-item {
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.1);
+}
+
+
 /* --- Footer --- */
 footer {
+  position: relative;
   text-align: center;
-  padding: 2rem;
-  background-color: var(--primary-purple);
+  padding: 4rem 2rem;
   color: var(--white);
+  background-size: cover;
+  background-position: center;
+  background-image: var(--lanthanum-footer-bg);
+}
+
+footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--primary-lavender);
+  opacity: 0.8;
+  z-index: 1;
+}
+
+footer p {
+  position: relative;
+  z-index: 2;
+  margin: 0;
 }
 
 /* --- Responsive Design --- */
@@ -236,8 +361,5 @@ footer {
   .profile-card {
       width: 90%;
       max-width: 350px;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
   }
 }

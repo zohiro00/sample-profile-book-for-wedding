@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
           el.setAttribute("src", `../${data.path[key]}`);
         }
         // 背景画像用のCSS変数を設定
-        else if (key.startsWith('lanthanum-bg')) {
+        else if (key.startsWith('lanthanum-bg') || key.startsWith('lanthanum-footer')) {
           document.documentElement.style.setProperty(`--${key}`, `url('../${data.path[key]}')`);
         }
       }
@@ -34,7 +34,10 @@ document.addEventListener("DOMContentLoaded", function () {
         document.title = data.text.title;
       }
 
-      // 4. アニメーションの初期化
+      // 4. 動的コンテンツの追加
+      populateTimeline(data.text.timeline_items);
+
+      // 5. アニメーションの初期化
       initializeAnimations();
 
     })
@@ -55,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
       anime({
         targets: cloudOverlay,
         opacity: [1, 0],
-        duration: 2000,
+        duration: 3000,
         easing: 'easeInOutQuad',
         complete: () => {
           cloudOverlay.style.pointerEvents = 'none';
@@ -94,5 +97,37 @@ document.addEventListener("DOMContentLoaded", function () {
     revealElements.forEach(el => {
       revealObserver.observe(el);
     });
+  }
+
+  function populateTimeline(timelineItems) {
+    const container = document.getElementById('timeline-container');
+    if (!container || !timelineItems) return;
+
+    const iconMap = {
+      "披露宴開始": "home",
+      "ケーキ入刀": "cake",
+      "再入場": "videocam",
+      "余興": "golf_course",
+      "お開き": "logout"
+    };
+
+    let timelineHTML = '';
+    timelineItems.forEach(item => {
+      const iconName = Object.keys(iconMap).find(key => item.event.includes(key)) || 'home';
+      const iconFile = `${iconName}_35dp_E3E3E3_FILL0_wght400_GRAD0_opsz40.svg`;
+
+      timelineHTML += `
+        <div class="timeline-item">
+          <div class="timeline-icon">
+            <img src="../images/${iconFile}" alt="Timeline Icon" />
+          </div>
+          <div class="timeline-content">
+            <h4>${item.time}</h4>
+            <p>${item.event}</p>
+          </div>
+        </div>
+      `;
+    });
+    container.innerHTML = timelineHTML;
   }
 });
