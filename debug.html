@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Debug Image Paths</title>
+    <style>
+        body { font-family: sans-serif; }
+        img { border: 2px solid red; margin: 10px; max-width: 200px; }
+        h2 { border-top: 2px solid #ccc; padding-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Image Path Debugging</h1>
+
+    <h2>Test 1: Background Image (lanthanum.jpg vs lanthanums.jpg)</h2>
+    <h3>Path: images/lanthanum.jpg</h3>
+    <img src="images/lanthanum.jpg" alt="lanthanum.jpg (singular)">
+
+    <h3>Path: images/lanthanums.jpg</h3>
+    <img src="images/lanthanums.jpg" alt="lanthanums.jpg (plural)">
+
+    <hr>
+
+    <h2>Test 2: Timeline Icon (from root)</h2>
+    <h3>Path: images/home_35dp_E3E3E3_FILL0_wght400_GRAD0_opsz40.svg</h3>
+    <img src="images/home_35dp_E3E3E3_FILL0_wght400_GRAD0_opsz40.svg" alt="Icon from root">
+
+    <hr>
+
+    <h2>Test 3: Timeline Icon (from a sub-directory like 'lanthanum/')</h2>
+    <h3>Path: ../images/home_35dp_E3E3E3_FILL0_wght400_GRAD0_opsz40.svg</h3>
+    <p>This test is for path logic. It won't work from this file, but it confirms the relative path concept.</p>
+
+</body>
+</html>
