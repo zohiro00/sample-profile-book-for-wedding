@@ -3,30 +3,37 @@ document.addEventListener("DOMContentLoaded", function () {
   fetch("../content.json")
     .then(response => {
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}, ${response.statusText}`);
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
       return response.json();
     })
     .then(data => {
       // 1. テキストコンテンツを反映
-      for (const key in data.text) {
-        const el = document.getElementById(key);
-        if (el) {
-          el.innerHTML = data.text[key];
+      try {
+        for (const key in data.text) {
+          const el = document.getElementById(key);
+          if (el) {
+            el.innerHTML = data.text[key];
+          }
         }
+      } catch (e) {
+        console.error("Error setting text content:", e);
+        throw e; // Re-throw to be caught by the outer catch
       }
 
       // 2. 画像パスとその他のパスを反映
-      for (const key in data.path) {
-        const el = document.getElementById(key);
-        // IMG要素のsrc属性を設定
-        if (el && el.tagName === 'IMG') {
-          el.setAttribute("src", `../${data.path[key]}`);
+      try {
+        for (const key in data.path) {
+          const el = document.getElementById(key);
+          if (el && el.tagName === 'IMG') {
+            el.setAttribute("src", `../${data.path[key]}`);
+          } else if (key.startsWith('lanthanum-bg') || key.startsWith('lanthanum-footer')) {
+            document.documentElement.style.setProperty(`--${key}`, `url('../${data.path[key]}')`);
+          }
         }
-        // 背景画像用のCSS変数を設定
-        else if (key.startsWith('lanthanum-bg') || key.startsWith('lanthanum-footer')) {
-          document.documentElement.style.setProperty(`--${key}`, `url('../${data.path[key]}')`);
-        }
+      } catch (e) {
+        console.error("Error setting paths:", e);
+        throw e;
       }
 
       // 3. ページのtitleも自動で設定
@@ -35,14 +42,24 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       // 4. 動的コンテンツの追加
-      populateTimeline(data.text.timeline_items);
+      try {
+        populateTimeline(data.text.timeline_items);
+      } catch (e) {
+        console.error("Error in populateTimeline:", e);
+        throw e;
+      }
 
       // 5. アニメーションの初期化
-      initializeAnimations();
+      try {
+        initializeAnimations();
+      } catch (e) {
+        console.error("Error in initializeAnimations:", e);
+        throw e;
+      }
 
     })
     .catch(error => {
-      console.error("JSON読み込みまたは処理エラー:", error);
+      console.error("Top-level catch:", error);
       const bodyElement = document.querySelector('body');
       if(bodyElement) {
           bodyElement.innerHTML = `<p style="color: #d14783; text-align: center; padding: 30px; font-family: 'Noto Serif JP', serif; font-size: 16px;">コンテンツの読み込みに失敗しました。<br>お手数ですが、しばらくしてから再度お試しください。</p>`;
@@ -51,8 +68,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // アニメーション関連の関数
   function initializeAnimations() {
-
-    // 1. 雲オーバーレイのアニメーション
     const cloudOverlay = document.getElementById('cloud-overlay');
     if (cloudOverlay) {
       anime({
@@ -65,13 +80,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       });
     }
-
-    // 2. メインタイトルのアニメーション
     const namesElement = document.querySelector('.main-visual .names');
     if (namesElement) {
-        // テキストを文字ごとにspanで囲む
         namesElement.innerHTML = namesElement.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
-
         anime.timeline({loop: false})
           .add({
             targets: '.main-visual .names .letter',
@@ -79,11 +90,9 @@ document.addEventListener("DOMContentLoaded", function () {
             opacity: [0,1],
             easing: "easeOutExpo",
             duration: 1400,
-            delay: (el, i) => 30 * i + 1500 // 1.5秒後から開始
+            delay: (el, i) => 30 * i + 1500
           });
     }
-
-    // 3. スクロールに応じた表示アニメーション
     const revealElements = document.querySelectorAll('.reveal-on-scroll');
     const revealObserver = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
@@ -93,7 +102,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       });
     }, { threshold: 0.1 });
-
     revealElements.forEach(el => {
       revealObserver.observe(el);
     });
@@ -102,20 +110,15 @@ document.addEventListener("DOMContentLoaded", function () {
   function populateTimeline(timelineItems) {
     const container = document.getElementById('timeline-container');
     if (!container || !timelineItems) return;
-
     const iconMap = {
-      "披露宴開始": "home",
-      "ケーキ入刀": "cake",
-      "再入場": "videocam",
-      "余興": "golf_course",
-      "お開き": "logout"
+      "披露宴開始": "home", "ケーキ入刀": "cake", "再入場": "videocam",
+      "余興": "golf_course", "お開き": "logout"
     };
-
     let timelineHTML = '';
     timelineItems.forEach(item => {
-      const iconName = Object.keys(iconMap).find(key => item.event.includes(key)) || 'home';
+      const iconKey = Object.keys(iconMap).find(key => item.event.includes(key)) || '披露宴開始';
+      const iconName = iconMap[iconKey];
       const iconFile = `${iconName}_35dp_E3E3E3_FILL0_wght400_GRAD0_opsz40.svg`;
-
       timelineHTML += `
         <div class="timeline-item">
           <div class="timeline-icon">
@@ -125,8 +128,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <h4>${item.time}</h4>
             <p>${item.event}</p>
           </div>
-        </div>
-      `;
+        </div>`;
     });
     container.innerHTML = timelineHTML;
   }
