@@ -8,9 +8,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
 </head>
 <body>
-
+  <div id="cloud-overlay"></div>
   <div class="container">
 
     <header class="main-visual">
@@ -24,7 +25,7 @@
     </header>
 
     <main>
-      <section class="greeting">
+      <section class="greeting reveal-on-scroll">
         <h2 class="section-title" id="greeting-title"></h2>
         <p class="greeting-text" id="greeting-text"></p>
       </section>
@@ -33,57 +34,86 @@
         <!-- 装飾画像 -->
       </div>
 
-      <section class="info">
-        <h2 class="section-title" id="info-title">INFORMATION</h2>
-        <div class="info-grid">
-          <div class="info-item">
-            <span class="info-label">日時</span>
-            <span class="info-value" id="info-datetime"></span>
-          </div>
-          <div class="info-item">
-            <span class="info-label">場所</span>
-            <span class="info-value" id="info-venue-name"></span>
-          </div>
-           <div class="info-item">
-            <span class="info-label">住所</span>
-            <span class="info-value" id="info-address"></span>
-          </div>
-        </div>
-      </section>
-
-      <div class="divider-image">
-        <!-- 装飾画像 -->
-      </div>
-
-      <section class="profile">
+      <section class="profile reveal-on-scroll">
         <h2 class="section-title" id="profile-title"></h2>
         <div class="profile-cards">
-          <div class="profile-card groom">
-            <img src="" alt="Groom" class="profile-image" id="lanthanum-profile1-image">
-            <h3 class="profile-name" id="lanthanum-profile1-name"></h3>
-            <p class="profile-message" id="lanthanum-profile1-message"></p>
+          <div class="profile-card">
+            <div class="profile-image-container">
+              <img src="" alt="Groom Profile" class="profile-image" id="profile1-image">
+            </div>
+            <div class="profile-content">
+              <h4 class="profile-name" id="profile1-name"></h4>
+              <div class="profile-details-grid">
+                <div class="profile-detail-item">
+                  <span class="detail-label" id="profile1-hometown-label"></span>
+                  <span class="detail-value" id="profile1-hometown-value"></span>
+                </div>
+                <div class="profile-detail-item">
+                  <span class="detail-label" id="profile1-hobbies-label"></span>
+                  <span class="detail-value" id="profile1-hobbies-value"></span>
+                </div>
+                <div class="profile-detail-item">
+                  <span class="detail-label" id="profile1-favfood-label"></span>
+                  <span class="detail-value" id="profile1-favfood-value"></span>
+                </div>
+                <div class="profile-detail-item">
+                  <span class="detail-label" id="profile1-commuting-time-label"></span>
+                  <span class="detail-value" id="profile1-commuting-time-value"></span>
+                </div>
+                <div class="profile-detail-item">
+                  <span class="detail-label" id="profile1-best-score-label"></span>
+                  <span class="detail-value" id="profile1-best-score-value"></span>
+                </div>
+                <div class="profile-detail-item">
+                  <span class="detail-label" id="profile1-favorite-place-label"></span>
+                  <span class="detail-value" id="profile1-favorite-place-value"></span>
+                </div>
+                <div class="profile-detail-item profile-message-item">
+                  <span class="detail-label" id="profile1-message-label"></span>
+                  <span class="detail-value" id="profile1-message-value"></span>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="profile-card bride">
-            <img src="" alt="Bride" class="profile-image" id="lanthanum-profile2-image">
-            <h3 class="profile-name" id="lanthanum-profile2-name"></h3>
-            <p class="profile-message" id="lanthanum-profile2-message"></p>
+          <div class="profile-card">
+            <div class="profile-image-container">
+              <img src="" alt="Bride Profile" class="profile-image" id="profile2-image">
+            </div>
+            <div class="profile-content">
+              <h4 class="profile-name" id="profile2-name"></h4>
+              <div class="profile-details-grid">
+                <div class="profile-detail-item">
+                  <span class="detail-label" id="profile2-hometown-label"></span>
+                  <span class="detail-value" id="profile2-hometown-value"></span>
+                </div>
+                <div class="profile-detail-item">
+                  <span class="detail-label" id="profile2-hobbies-label"></span>
+                  <span class="detail-value" id="profile2-hobbies-value"></span>
+                </div>
+                <div class="profile-detail-item">
+                  <span class="detail-label" id="profile2-favfood-label"></span>
+                  <span class="detail-value" id="profile2-favfood-value"></span>
+                </div>
+                <div class="profile-detail-item">
+                  <span class="detail-label" id="profile2-commuting-time-label"></span>
+                  <span class="detail-value" id="profile2-commuting-time-value"></span>
+                </div>
+                <div class="profile-detail-item">
+                  <span class="detail-label" id="profile2-best-score-label"></span>
+                  <span class="detail-value" id="profile2-best-score-value"></span>
+                </div>
+                <div class="profile-detail-item">
+                  <span class="detail-label" id="profile2-favorite-place-label"></span>
+                  <span class="detail-value" id="profile2-favorite-place-value"></span>
+                </div>
+                <div class="profile-detail-item profile-message-item">
+                  <span class="detail-label" id="profile2-message-label"></span>
+                  <span class="detail-value" id="profile2-message-value"></span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </section>
-
-      <section class="map">
-         <h2 class="section-title">ACCESS</h2>
-         <div class="map-container">
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3241.291399991353!2d139.7434933152585!3d35.66982488019702!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188b8576d3989d%3A0x538cf2f0f2a7b322!2z5p2x5Lqs6YO9!5e0!3m2!1sja!2sjp!4v1663476883832!5m2!1sja!2sjp"
-                width="100%"
-                height="450"
-                style="border:0;"
-                allowfullscreen=""
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
-         </div>
       </section>
 
     </main>
