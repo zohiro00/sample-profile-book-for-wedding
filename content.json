@@ -60,7 +60,14 @@
     "seating-chart-title": "SEATING CHART",
     "photo-gallery-title": "PHOTO GALLERY",
     "venue-name": "Westin Hotel Tokyo",
-    "footer-text": "Thank you for celebrating with us!"
+    "footer-text": "Thank you for celebrating with us!",
+    "timeline_items": [
+      { "time": "14:30", "event": "披露宴開始" },
+      { "time": "15:15", "event": "ケーキ入刀" },
+      { "time": "15:55", "event": "再入場" },
+      { "time": "16:20", "event": "余興" },
+      { "time": "17:00", "event": "お開き" }
+    ]
   },
   "path": {
     "ribbon-image": "images/ribbon2.png",
@@ -79,8 +86,9 @@
     "gallery-image5": "images/profile_image_03_01.jpg",
     "gallery-image6": "images/profile_image_04_01.jpg",
     "footer-decoration-image": "images/profile1.jpeg",
-    "lanthanum-bg-main": "images/lanthanums.jpg",
-    "lanthanum-bg-sub": "images/lanthanums_wide.png"
+    "lanthanum-bg-main": "images/lanthanum.jpg",
+    "lanthanum-bg-sub": "images/lanthanum_wide.png",
+    "lanthanum-footer-bg": "images/isometric.jpg"
   },
   "table_descriptions": {
     "table_1": "🎓 新郎の大学時代の友人一同です。くだらない話で笑い合った日々が懐かしい！今日は楽しんでいってね！ 🎉",
