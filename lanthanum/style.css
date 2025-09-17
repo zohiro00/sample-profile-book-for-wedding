@@ -57,7 +57,7 @@ h1, h2, h3 {
   margin-top: 0;
 }
 
-h2.section-title {
+h3.section-title {
   text-align: center;
   font-size: 1.8rem;
   color: var(--primary-lavender);
@@ -149,30 +149,31 @@ section:last-of-type {
 }
 
 .profile-card {
-  display: block;
+  display: flex;
+  gap: 2rem;
   background-color: #fdfdff;
   border-radius: 12px;
-  padding: 2rem 1.5rem;
+  padding: 2rem;
   border: 1px solid #eee;
   box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-  text-align: center;
+  align-items: flex-start;
+  text-align: left;
 }
 
 .profile-image-container {
-  margin: 0 auto 1.5rem auto;
+  flex-shrink: 0;
 }
 
 .profile-image {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  border-radius: 12px;
   object-fit: cover;
   border: 4px solid var(--light-lavender);
 }
 
 .profile-content {
-  max-width: 500px;
-  margin: 0 auto;
+  flex-grow: 1;
 }
 
 .profile-name {
@@ -291,7 +292,8 @@ section:last-of-type {
 /* --- Photo Gallery Section --- */
 .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 150px;
     gap: 1rem;
 }
 
@@ -299,6 +301,16 @@ section:last-of-type {
     overflow: hidden;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.gallery-item:nth-child(1) {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+
+.gallery-item:nth-child(6) {
+    grid-column: span 2;
+    grid-row: span 1;
 }
 
 .gallery-item img {
