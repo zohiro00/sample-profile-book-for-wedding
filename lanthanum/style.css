@@ -126,6 +126,7 @@ section:last-of-type {
 .greeting-text {
   text-align: center;
   font-family: 'Cormorant Garamond', serif;
+  font-size: 0.9rem;
   color: var(--dark-gray);
   max-width: 600px;
   margin: 0 auto;
