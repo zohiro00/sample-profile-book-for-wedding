@@ -125,16 +125,17 @@ section:last-of-type {
 /* --- Greeting Section --- */
 .greeting-text {
   text-align: center;
-  font-size: 1.1rem;
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--dark-gray);
   max-width: 600px;
   margin: 0 auto;
 }
 
 /* --- Divider Image --- */
 .divider-image {
-    height: 150px;
+    height: 100px;
     background-image: var(--lanthanum-bg-sub);
-    background-size: cover;
+    background-size: 100%;
     background-position: center;
     background-attachment: fixed; /* Parallax effect */
 }
@@ -200,6 +201,8 @@ section:last-of-type {
 }
 
 .profile-detail-item {
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--dark-gray);
     display: flex;
     flex-direction: column;
 }
@@ -339,7 +342,9 @@ section:last-of-type {
 footer {
   position: relative;
   text-align: center;
-  padding: 6rem 2rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  padding: 20rem 2rem;
   color: var(--white);
   background-size: cover;
   background-position: center;
