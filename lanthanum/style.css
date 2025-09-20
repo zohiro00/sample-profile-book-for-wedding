@@ -31,7 +31,7 @@
   --light-lavender: #E6E6FA;   /* Lavender */
   --dark-gray: #333333;
   --medium-gray: #666666;
-  --light-gray: #f4f4f4;
+  --light-gray: #efefef;
   --white: #ffffff;
   --font-main: 'Noto Serif JP', serif;
 }
@@ -48,7 +48,7 @@ body, html {
 .container {
   max-width: 800px;
   margin: 0 auto;
-  background-color: var(--white);
+  background-color: var(--light-gray);
   box-shadow: 0 0 20px rgba(0,0,0,0.05);
 }
 
@@ -242,7 +242,7 @@ section:last-of-type {
 .timeline::before {
     content: '';
     position: absolute;
-    left: 10px;
+    left: 28px;
     top: 0;
     bottom: 0;
     width: 4px;
@@ -278,7 +278,7 @@ section:last-of-type {
 }
 
 .timeline-content {
-    padding-left: 30px;
+    padding-left: 40px;
 }
 .timeline-content h4 {
     margin: 0 0 0.5rem 0;
@@ -321,7 +321,7 @@ section:last-of-type {
     grid-row: span 2;
 }
 
-.gallery-item:nth-child(6) {
+.gallery-item:nth-child(7) {
     grid-column: span 2;
     grid-row: span 1;
 }
